@@ -1,0 +1,16 @@
+﻿<Application x:Class="MiniETL.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Resources/DesignerItem.xaml" />
+				<ResourceDictionary Source="Resources/Toolbox.xaml" />
+				<!-- toolbox components -->
+				<ResourceDictionary Source="Resources/Components/FileInputComponent.xaml" />
+				<ResourceDictionary Source="Resources/Components/FileOutputComponent.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Application.Resources>
+</Application>
