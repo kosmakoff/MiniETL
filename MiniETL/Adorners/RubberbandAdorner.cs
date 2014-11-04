@@ -26,7 +26,15 @@ namespace MiniETL.Adorners
 			_adornerCanvas = new Canvas {Background = Brushes.Transparent};
 			_visuals = new VisualCollection(this) {_adornerCanvas};
 
-			_rubberband = new Rectangle {Stroke = Brushes.Navy, StrokeThickness = 1, StrokeDashArray = new DoubleCollection {2}};
+			var fillBrushColor = Colors.MediumBlue;
+			fillBrushColor.A = 48;
+			var fillBrush = new SolidColorBrush(fillBrushColor);
+
+			var strokeBrushColor = Colors.Navy;
+			strokeBrushColor.A = 64;
+			var strokeBrush = new SolidColorBrush(strokeBrushColor);
+
+			_rubberband = new Rectangle() {Stroke = strokeBrush, StrokeThickness = 2, Fill = fillBrush};
 
 			_adornerCanvas.Children.Add(_rubberband);
 		}
