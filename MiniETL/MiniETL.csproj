@@ -72,14 +72,20 @@
     <Compile Include="Converters\DoubleFormatConverter.cs" />
     <Compile Include="Converters\NegateRotationConverter.cs" />
     <Compile Include="Converters\TransformConverter.cs" />
+    <Compile Include="Converters\VisibilityConverter.cs" />
+    <Compile Include="MarkupExtensions\DisplayNameExtension.cs" />
     <Compile Include="UI\DesignerCanvas.cs" />
     <Compile Include="UI\DesignerItem.cs" />
     <Compile Include="UI\DesignerItemDecorator.cs" />
     <Compile Include="UI\MoveThumb.cs" />
     <Compile Include="UI\ResizeThumb.cs" />
     <Compile Include="UI\RotateThumb.cs" />
+    <Compile Include="UI\TextBlockEx.cs" />
     <Compile Include="UI\Toolbox.cs" />
     <Compile Include="UI\ToolboxItem.cs" />
+    <Compile Include="UI\ViewEditTextControl.xaml.cs">
+      <DependentUpon>ViewEditTextControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -120,6 +126,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\ViewEditTextControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -151,6 +161,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Cursors\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Check.png" />
+    <Resource Include="Resources\Images\Pencil.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

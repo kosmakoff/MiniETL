@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using MiniETL.Components;
 
 namespace MiniETL.UI
 {
@@ -27,6 +28,12 @@ namespace MiniETL.UI
 		{
 			get { return (bool) GetValue(IsSelectedProperty); }
 			set { SetValue(IsSelectedProperty, value); }
+		}
+
+		public ComponentBase Component
+		{
+			get { return (ComponentBase)Content; }
+			set { Content = value; }
 		}
 
 		public static void SetMoveThumbTemplate(DependencyObject element, ControlTemplate value)

@@ -12,18 +12,36 @@
 	</ControlTemplate>
 
 	<Style TargetType="{x:Type ui:DesignerItem}">
-		<Setter Property="MinHeight" Value="50"/>
-		<Setter Property="MinWidth" Value="50"/>
+		<Setter Property="MinHeight" Value="100"/>
+		<Setter Property="MinWidth" Value="150"/>
 		<Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
 		<Setter Property="SnapsToDevicePixels" Value="true"/>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ui:DesignerItem}">
 					<Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}">
-						<ui:MoveThumb x:Name="PART_MoveThumb" Cursor="SizeAll" Template="{StaticResource MoveThumbTemplate}" />
-						<ContentPresenter x:Name="PART_ContentPresenter" Content="{TemplateBinding ContentControl.Content}"
-										  Margin="{TemplateBinding Padding}"/>
-						<ui:DesignerItemDecorator x:Name="PART_DesignerItemDecorator"/>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+						<Border BorderThickness="1" BorderBrush="Black" Grid.Row="0" CornerRadius="5, 5, 0, 0" Background="Bisque"
+								HorizontalAlignment="Left" x:Name="BorderHeader">
+							<Grid>
+								<ui:MoveThumb Template="{StaticResource MoveThumbTemplate}" x:Name="PART_MoveThumb" Cursor="SizeAll" />
+								<Grid Margin="3">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+									<Ellipse Grid.Column="0" Width="12" Height="12" Fill="BlueViolet" VerticalAlignment="Center" Margin="2,0,0,0" />
+									<ui:ViewEditTextControl Grid.Column="1" EditableText="{Binding Component.Name, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+								</Grid>
+							</Grid>
+						</Border>
+						<Border BorderThickness="1" BorderBrush="Black" Grid.Row="1" Background="Beige" x:Name="BorderContent">
+							<ContentPresenter x:Name="PART_ContentPresenter" Content="{TemplateBinding ContentControl.Content}" Margin="5"/>
+						</Border>
+						<ui:DesignerItemDecorator Grid.Row="0" Grid.RowSpan="2" x:Name="PART_DesignerItemDecorator"/>
 					</Grid>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsSelected" Value="True">

@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Windows;
 
 namespace MiniETL.Components
 {
 	public class FileInputComponent : ComponentBase
 	{
-		public string FileName { get; set; }
+		public static readonly DependencyProperty FileNameProperty = DependencyProperty.Register(
+			"FileName", typeof (DependencyProperty), typeof (FileInputComponent), new PropertyMetadata(default(DependencyProperty)));
+
+		[DisplayName(@"File Name")]
+		public DependencyProperty FileName
+		{
+			get { return (DependencyProperty) GetValue(FileNameProperty); }
+			set { SetValue(FileNameProperty, value); }
+		}
 	}
 }
