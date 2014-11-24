@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:components="clr-namespace:MiniETL.Components"
+                    xmlns:markupExtensions="clr-namespace:MiniETL.MarkupExtensions">
+	<DataTemplate DataType="{x:Type components:FileOutputComponentGenerator}">
+		<TextBlock Text="{Binding Path=DisplayName}" TextTrimming="CharacterEllipsis">
+			<TextBlock.ToolTip>
+				<ToolTip>
+					<TextBlock Text="{Binding Path=Description}" />
+				</ToolTip>
+			</TextBlock.ToolTip>
+		</TextBlock>
+	</DataTemplate>
+</ResourceDictionary>

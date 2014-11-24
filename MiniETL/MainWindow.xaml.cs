@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MiniETL.Components;
+using MiniETL.ViewModels;
 
 namespace MiniETL
 {
@@ -25,13 +26,18 @@ namespace MiniETL
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		[Obsolete("Must move it somewhere")]
 		public ComponentsContainer Components { get; private set; }
+
+		public MainWindowViewModel ViewModel { get; private set; }
 
 		public MainWindow()
 		{
-			InitializeComponent();
+			ViewModel = new MainWindowViewModel();
 
 			Components = new ComponentsContainer();
+
+			InitializeComponent();
 		}
 	}
 

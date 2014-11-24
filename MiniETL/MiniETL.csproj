@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <ExpressionBlendVersion>12.0.41002.1</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -63,6 +64,7 @@
     <Compile Include="Adorners\RubberbandAdorner.cs" />
     <Compile Include="Adorners\SizeAdorner.cs" />
     <Compile Include="Adorners\SizeChrome.cs" />
+    <Compile Include="AttachedProperties\DragAndDrop.cs" />
     <Compile Include="Components\ComponentBase.cs" />
     <Compile Include="Components\ComponentGeneratorBase.cs" />
     <Compile Include="Components\FileInputComponent.cs" />
@@ -74,18 +76,43 @@
     <Compile Include="Converters\TransformConverter.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="MarkupExtensions\DisplayNameExtension.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="StyleSelectors\DesignerItemsControlItemStyleSelector.cs" />
+    <Compile Include="UI\Connector.cs" />
     <Compile Include="UI\DesignerCanvas.cs" />
     <Compile Include="UI\DesignerItem.cs" />
     <Compile Include="UI\DesignerItemDecorator.cs" />
+    <Compile Include="UI\DiagramControl.xaml.cs">
+      <DependentUpon>DiagramControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\MoveThumb.cs" />
     <Compile Include="UI\ResizeThumb.cs" />
     <Compile Include="UI\RotateThumb.cs" />
     <Compile Include="UI\TextBlockEx.cs" />
     <Compile Include="UI\Toolbox.cs" />
+    <Compile Include="UI\ToolboxControl.xaml.cs">
+      <DependentUpon>ToolboxControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ToolboxItem.cs" />
     <Compile Include="UI\ViewEditTextControl.xaml.cs">
       <DependentUpon>ViewEditTextControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ZoomBox.cs" />
+    <Compile Include="ViewModels\Components\FileOutputComponentDesignerViewModel.cs" />
+    <Compile Include="ViewModels\ConnectorInfoBase.cs" />
+    <Compile Include="ViewModels\ConnectorViewModel.cs" />
+    <Compile Include="ViewModels\DesignerItemViewModelBase.cs" />
+    <Compile Include="ViewModels\DesignTime\DiagramViewModel.cs" />
+    <Compile Include="ViewModels\DesignTime\ToolboxViewModel.cs" />
+    <Compile Include="ViewModels\DiagramViewModel.cs" />
+    <Compile Include="ViewModels\Components\FileInputComponentDesignerViewModel.cs" />
+    <Compile Include="ViewModels\FullyCreatedConnectorInfo.cs" />
+    <Compile Include="ViewModels\IDiagramViewModel.cs" />
+    <Compile Include="ViewModels\INpcBase.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\SelectableDesignerItemViewModelBase.cs" />
+    <Compile Include="ViewModels\SimpleCommand.cs" />
+    <Compile Include="ViewModels\ToolboxViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -98,31 +125,51 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Resources\Components\FileInputComponent.xaml">
+    <Page Include="Resources\Styles\Components\FileInputComponentGenerator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\Components\FileInputComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Components\FIleOutputComponent.xaml">
+    <Page Include="Resources\Styles\Components\FIleOutputComponentGenerator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\Components\FIleOutputComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\DesignerItem.xaml">
+    <Page Include="Resources\Styles\DesignerItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\ResizeRotateChrome.xaml">
+    <Page Include="Resources\Styles\ResizeRotateChrome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\RotationChrome.xaml">
+    <Page Include="Resources\Styles\RotationChrome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\SizeChrome.xaml">
+    <Page Include="Resources\Styles\Shared.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Toolbox.xaml">
+    <Page Include="Resources\Styles\SizeChrome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\ZoomBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\DiagramControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ToolboxControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

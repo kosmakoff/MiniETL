@@ -3,25 +3,12 @@
                     xmlns:components="clr-namespace:MiniETL.Components"
                     xmlns:markupExtensions="clr-namespace:MiniETL.MarkupExtensions">
 	<DataTemplate DataType="{x:Type components:FileInputComponentGenerator}">
-		<TextBlock Text="{Binding Path=DisplayName}">
+		<TextBlock Text="{Binding Path=DisplayName}" TextTrimming="CharacterEllipsis">
 			<TextBlock.ToolTip>
 				<ToolTip>
 					<TextBlock Text="{Binding Path=Description}" />
 				</ToolTip>
 			</TextBlock.ToolTip>
 		</TextBlock>
-	</DataTemplate>
-
-	<DataTemplate DataType="{x:Type components:FileInputComponent}">
-		<Grid VerticalAlignment="Top">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<Label Grid.Column="0">
-				<markupExtensions:DisplayName Type="{x:Type components:FileInputComponent}" PropertyName="FileName" />
-			</Label>
-			<TextBox Grid.Column="1" Text="{Binding Path=FileName}" VerticalContentAlignment="Center" />
-		</Grid>
 	</DataTemplate>
 </ResourceDictionary>

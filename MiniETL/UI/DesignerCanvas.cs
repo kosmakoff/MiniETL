@@ -7,12 +7,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using MiniETL.Adorners;
 using MiniETL.Components;
+using MiniETL.UI.DiagramDesigner.Controls;
 
 namespace MiniETL.UI
 {
 	public class DesignerCanvas : Canvas
 	{
 		private Point? _dragStartPoint;
+
+		public DesignerCanvas()
+		{
+			AllowDrop = true;
+
+		}
+
+		public Connector SourceConnector { get; set; }
 
 		public IEnumerable<DesignerItem> SelectedItems
 		{
@@ -76,8 +85,8 @@ namespace MiniETL.UI
 
 			Point position = e.GetPosition(this);
 
-			designerItem.Width = 65;
-			designerItem.Height = 65;
+			designerItem.Width = 150;
+			designerItem.Height = 100;
 
 			SetLeft(designerItem, Math.Max(0, position.X - designerItem.Width/2));
 			SetTop(designerItem, Math.Max(0, position.Y - designerItem.Height/2));
@@ -114,7 +123,5 @@ namespace MiniETL.UI
 			size.Height += 10;
 			return size;
 		}
-
-		
 	}
 }

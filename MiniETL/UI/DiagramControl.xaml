@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="MiniETL.UI.DiagramControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ui="clr-namespace:MiniETL.UI"
+             xmlns:styleSelectors="clr-namespace:MiniETL.StyleSelectors"
+             mc:Ignorable="d" 
+             d:DesignHeight="375" d:DesignWidth="600">
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/Resources/Styles/ZoomBox.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
+	<Border BorderBrush="LightGray" BorderThickness="1">
+		<Grid>
+			<ScrollViewer x:Name="DesignerScrollViewer" Background="Transparent" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+				<ItemsControl ItemsSource="{Binding Items}"
+							  ItemContainerStyleSelector="{x:Static styleSelectors:DesignerItemsControlItemStyleSelector.Instance}">
+
+				</ItemsControl>
+			</ScrollViewer>
+			<ui:ZoomBox x:Name="ZoomBox" Width="180"
+						HorizontalAlignment="Right" VerticalAlignment="Top"
+						ScrollViewer="{Binding ElementName=DesignerScrollViewer}"
+						Margin="0,5,25,0"/>
+		</Grid>
+	</Border>
+</UserControl>

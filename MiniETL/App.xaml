@@ -5,11 +5,10 @@
     <Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="Resources/DesignerItem.xaml" />
-				<ResourceDictionary Source="Resources/Toolbox.xaml" />
-				<!-- toolbox components -->
-				<ResourceDictionary Source="Resources/Components/FileInputComponent.xaml" />
-				<ResourceDictionary Source="Resources/Components/FileOutputComponent.xaml" />
+				<ResourceDictionary Source="pack://application:,,,/Resources/Styles/DesignerItem.xaml" />
+
+				<ResourceDictionary Source="pack://application:,,,/Resources/Styles/Components/FileInputComponent.xaml" />
+				<ResourceDictionary Source="pack://application:,,,/Resources/Styles/Components/FileOutputComponent.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>
