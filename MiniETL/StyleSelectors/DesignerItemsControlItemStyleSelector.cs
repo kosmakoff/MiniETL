@@ -20,14 +20,14 @@ namespace MiniETL.StyleSelectors
 			if (itemsControl == null)
 				throw new InvalidOperationException("DesignerItemsControlItemStyleSelector : Could not find ItemsControl");
 
-			if (item is DesignerItemViewModelBase)
+			if (item is DesignerItemViewModel)
 			{
-				return (Style)itemsControl.FindResource("designerItemStyle");
+				return (Style)itemsControl.FindResource("DesignerItemStyle");
 			}
 
 			if (item is ConnectorViewModel)
 			{
-				return (Style)itemsControl.FindResource("connectorItemStyle");
+				return (Style)itemsControl.FindResource("ConnectorItemStyle");
 			}
 
 			return null;

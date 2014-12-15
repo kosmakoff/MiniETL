@@ -57,14 +57,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Adorners\ResizeRotateAdorner.cs" />
-    <Compile Include="Adorners\ResizeRotateChrome.cs" />
-    <Compile Include="Adorners\RotationAdorner.cs" />
-    <Compile Include="Adorners\RotationChrome.cs" />
+    <Compile Include="Adorners\ResizeAdorner.cs" />
+    <Compile Include="Adorners\ResizeChrome.cs" />
     <Compile Include="Adorners\RubberbandAdorner.cs" />
     <Compile Include="Adorners\SizeAdorner.cs" />
     <Compile Include="Adorners\SizeChrome.cs" />
     <Compile Include="AttachedProperties\DragAndDrop.cs" />
+    <Compile Include="AttachedProperties\ItemConnectProps.cs" />
+    <Compile Include="AttachedProperties\SelectionProps.cs" />
     <Compile Include="Components\ComponentBase.cs" />
     <Compile Include="Components\ComponentGeneratorBase.cs" />
     <Compile Include="Components\FileInputComponent.cs" />
@@ -80,14 +80,12 @@
     <Compile Include="StyleSelectors\DesignerItemsControlItemStyleSelector.cs" />
     <Compile Include="UI\Connector.cs" />
     <Compile Include="UI\DesignerCanvas.cs" />
-    <Compile Include="UI\DesignerItem.cs" />
     <Compile Include="UI\DesignerItemDecorator.cs" />
     <Compile Include="UI\DiagramControl.xaml.cs">
       <DependentUpon>DiagramControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\MoveThumb.cs" />
     <Compile Include="UI\ResizeThumb.cs" />
-    <Compile Include="UI\RotateThumb.cs" />
     <Compile Include="UI\TextBlockEx.cs" />
     <Compile Include="UI\Toolbox.cs" />
     <Compile Include="UI\ToolboxControl.xaml.cs">
@@ -98,10 +96,11 @@
       <DependentUpon>ViewEditTextControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ZoomBox.cs" />
+    <Compile Include="Utils\FrameworkUtils.cs" />
     <Compile Include="ViewModels\Components\FileOutputComponentDesignerViewModel.cs" />
     <Compile Include="ViewModels\ConnectorInfoBase.cs" />
     <Compile Include="ViewModels\ConnectorViewModel.cs" />
-    <Compile Include="ViewModels\DesignerItemViewModelBase.cs" />
+    <Compile Include="ViewModels\DesignerItemViewModel.cs" />
     <Compile Include="ViewModels\DesignTime\DiagramViewModel.cs" />
     <Compile Include="ViewModels\DesignTime\ToolboxViewModel.cs" />
     <Compile Include="ViewModels\DiagramViewModel.cs" />
@@ -141,15 +140,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\Styles\ConnectorItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Styles\DesignerItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Styles\ResizeRotateChrome.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Styles\RotationChrome.xaml">
+    <Page Include="Resources\Styles\ResizeChrome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

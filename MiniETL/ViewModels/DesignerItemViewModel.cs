@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using MiniETL.Components;
 using MiniETL.UI.DiagramDesigner.Controls;
 
 namespace MiniETL.ViewModels
 {
-	public abstract class DesignerItemViewModelBase : SelectableDesignerItemViewModelBase
+	public class DesignerItemViewModel : SelectableDesignerItemViewModelBase
 	{
 		private readonly List<FullyCreatedConnectorInfo> _connectors = new List<FullyCreatedConnectorInfo>();
 		private double _left, _top;
 		private bool _showConnectors;
-		private double _itemHeight;
-		private double _itemWidth;
+		private double _height;
+		private double _width;
 
-		protected DesignerItemViewModelBase(int id, IDiagramViewModel parent, double left, double top)
+		public DesignerItemViewModel(int id, IDiagramViewModel parent, double left, double top)
 			: base(id, parent)
 		{
 			_left = left;
@@ -21,10 +22,12 @@ namespace MiniETL.ViewModels
 			Init();
 		}
 
-		protected DesignerItemViewModelBase()
+		public DesignerItemViewModel()
 		{
 			Init();
 		}
+
+		public ComponentBase Component { get; set; }
 
 		public FullyCreatedConnectorInfo TopConnector
 		{
@@ -45,6 +48,9 @@ namespace MiniETL.ViewModels
 		{
 			get { return _connectors[3]; }
 		}
+
+		public static double MinHeight = 100;
+		public static double MinWidth = 150;
 
 		public double Left
 		{
@@ -70,24 +76,24 @@ namespace MiniETL.ViewModels
 			}
 		}
 
-		public double ItemHeight
+		public double Height
 		{
-			get { return _itemHeight; }
+			get { return _height; }
 			set
 			{
-				if (value.Equals(_itemHeight)) return;
-				_itemHeight = value;
+				if (value.Equals(_height)) return;
+				_height = value;
 				OnPropertyChanged();
 			}
 		}
 
-		public double ItemWidth
+		public double Width
 		{
-			get { return _itemWidth; }
+			get { return _width; }
 			set
 			{
-				if (value.Equals(_itemWidth)) return;
-				_itemWidth = value;
+				if (value.Equals(_width)) return;
+				_width = value;
 				OnPropertyChanged();
 			}
 		}
@@ -115,8 +121,8 @@ namespace MiniETL.ViewModels
 			_connectors.Add(new FullyCreatedConnectorInfo(this, ConnectorOrientation.Left));
 			_connectors.Add(new FullyCreatedConnectorInfo(this, ConnectorOrientation.Right));
 
-			ItemHeight = 65;
-			ItemWidth = 65;
+			Height = 65;
+			Width = 65;
 
 			ShowConnectors = false;
 		}

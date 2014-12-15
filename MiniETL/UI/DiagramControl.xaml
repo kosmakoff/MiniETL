@@ -5,21 +5,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ui="clr-namespace:MiniETL.UI"
              xmlns:styleSelectors="clr-namespace:MiniETL.StyleSelectors"
-             mc:Ignorable="d" 
-             d:DesignHeight="375" d:DesignWidth="600">
+             xmlns:viewModels="clr-namespace:MiniETL.ViewModels"
+             mc:Ignorable="d" d:DesignHeight="375" d:DesignWidth="600">
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/Resources/Styles/ZoomBox.xaml" />
+				<ResourceDictionary Source="/MiniETL;component/Resources/Styles/ZoomBox.xaml" />
+				<ResourceDictionary Source="/MiniETL;component/Resources/Styles/DesignerItem.xaml" />
+				<ResourceDictionary Source="/MiniETL;component/Resources/Styles/ConnectorItem.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</UserControl.Resources>
-	<Border BorderBrush="LightGray" BorderThickness="1">
+	<Border BorderBrush="LightGray" BorderThickness="1" d:DataContext="{d:DesignInstance viewModels:DiagramViewModel}">
 		<Grid>
 			<ScrollViewer x:Name="DesignerScrollViewer" Background="Transparent" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
 				<ItemsControl ItemsSource="{Binding Items}"
 							  ItemContainerStyleSelector="{x:Static styleSelectors:DesignerItemsControlItemStyleSelector.Instance}">
-
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<ui:DesignerCanvas x:Name="DesignerCanvas" Background="White" Loaded="DesignerCanvas_OnLoaded" />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
 				</ItemsControl>
 			</ScrollViewer>
 			<ui:ZoomBox x:Name="ZoomBox" Width="180"

@@ -2,13 +2,12 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ui="clr-namespace:MiniETL.UI"
-        xmlns:miniEtl="clr-namespace:MiniETL" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:designTime="clr-namespace:MiniETL.ViewModels.DesignTime"
-        mc:Ignorable="d"
-        Title="Mini ETL" Height="480" Width="640"
-		SnapsToDevicePixels="True"
-		DataContext="{Binding RelativeSource={RelativeSource Self}, Path=ViewModel}">
+        xmlns:viewModels="clr-namespace:MiniETL.ViewModels"
+        mc:Ignorable="d" Title="Mini ETL" Height="480" Width="640"
+		SnapsToDevicePixels="True" Loaded="MainWindow_OnLoaded"
+		d:DataContext="{d:DesignData viewModels:MainWindowViewModel}">
 	<Window.InputBindings>
 		<KeyBinding Key="Delete" Command="{Binding DeleteSelectedItemsCommand}" />
 	</Window.InputBindings>
@@ -19,12 +18,9 @@
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 		<StackPanel>
-			<ui:ToolboxControl DataContext="{Binding ToolboxViewModel}" d:DataContext="{d:DesignInstance designTime:ToolboxViewModel, IsDesignTimeCreatable=True}"/>
+			<ui:ToolboxControl DataContext="{Binding ToolboxViewModel}"/>
 		</StackPanel>
 		<GridSplitter Grid.Column="1" Width="3" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
-		<ScrollViewer Grid.Column="2" Background="Transparent" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-			<ui:DesignerCanvas Background="Transparent" ClipToBounds="True"
-							   DataContext="{Binding Components, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type miniEtl:MainWindow}}}" />
-		</ScrollViewer>
+		<ui:DiagramControl Grid.Column="2" DataContext="{Binding DiagramViewModel}" />
 	</Grid>
 </Window>

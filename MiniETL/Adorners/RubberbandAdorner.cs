@@ -6,6 +6,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using MiniETL.UI;
+using MiniETL.Utils;
+using MiniETL.ViewModels;
 
 namespace MiniETL.Adorners
 {
@@ -98,13 +100,31 @@ namespace MiniETL.Adorners
 
 		private void UpdateSelection()
 		{
+			var vm = (IDiagramViewModel) _designerCanvas.DataContext;
 			var rubberBand = new Rect(_startPoint.Value, _endPoint.Value);
-			foreach (DesignerItem item in _designerCanvas.Children)
-			{
-				Rect itemRect = VisualTreeHelper.GetDescendantBounds(item);
-				Rect itemBounds = item.TransformToAncestor(_designerCanvas).TransformBounds(itemRect);
+			var itemsControl = FrameworkUtils.GetParent<ItemsControl>(typeof(ItemsControl), _designerCanvas);
 
-				item.IsSelected = rubberBand.Contains(itemBounds);
+			foreach (SelectableDesignerItemViewModelBase item in vm.Items)
+			{
+				if (item != null)
+				{
+					DependencyObject container = itemsControl.ItemContainerGenerator.ContainerFromItem(item);
+
+					Rect itemRect = VisualTreeHelper.GetDescendantBounds((Visual)container);
+					Rect itemBounds = ((Visual)container).TransformToAncestor(_designerCanvas).TransformBounds(itemRect);
+
+					if (rubberBand.Contains(itemBounds))
+					{
+						item.IsSelected = true;
+					}
+					else
+					{
+						if (!(Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
+						{
+							item.IsSelected = false;
+						}
+					}
+				}
 			}
 		}
 	}

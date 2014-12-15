@@ -1,21 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using MiniETL.Components;
 using MiniETL.ViewModels;
 
@@ -26,45 +9,28 @@ namespace MiniETL
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		[Obsolete("Must move it somewhere")]
-		public ComponentsContainer Components { get; private set; }
-
 		public MainWindowViewModel ViewModel { get; private set; }
 
 		public MainWindow()
 		{
-			ViewModel = new MainWindowViewModel();
-
-			Components = new ComponentsContainer();
-
 			InitializeComponent();
+
+			ViewModel = new MainWindowViewModel();
+			DataContext = ViewModel;
 		}
-	}
 
-	public class ComponentsContainer : ObservableCollection<ComponentBase>
-	{
-		private static readonly object Lock = new object();
 
-		private readonly Dictionary<Type, int> _counters = new Dictionary<Type, int>();
-
-		public int GetNextCounter(Type type)
+		private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
 		{
-			lock (Lock)
-			{
-				int value;
-				if (_counters.TryGetValue(type, out value))
+			ViewModel.DiagramViewModel.AddItemCommand.Execute(
+				new DesignerItemViewModel
 				{
-					value++;
-					
-				}
-				else
-				{
-					value = 1;
-				}
-
-				_counters[type] = value;
-				return value;
-			}
+					Component = new FileInputComponent {Name = "First Input", FileName = @"c:\temp\1.png"},
+					Top = 100,
+					Left = 100,
+					Width = 200,
+					Height = 150
+				});
 		}
 	}
 }

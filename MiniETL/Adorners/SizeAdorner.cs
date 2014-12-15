@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 
@@ -10,7 +9,7 @@ namespace MiniETL.Adorners
 		private readonly SizeChrome _chrome;
 		private readonly VisualCollection _visuals;
 
-		public SizeAdorner(ContentControl designerItem)
+		public SizeAdorner(FrameworkElement designerItem)
 			: base(designerItem)
 		{
 			SnapsToDevicePixels = true;

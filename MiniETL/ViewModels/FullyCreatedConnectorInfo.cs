@@ -6,12 +6,12 @@ namespace MiniETL.ViewModels
 	{
 		private bool _showConnectors;
 
-		public FullyCreatedConnectorInfo(DesignerItemViewModelBase dataItem, ConnectorOrientation orientation) : base(orientation)
+		public FullyCreatedConnectorInfo(DesignerItemViewModel dataItem, ConnectorOrientation orientation) : base(orientation)
 		{
 			DataItem = dataItem;
 		}
 
-		public DesignerItemViewModelBase DataItem { get; private set; }
+		public DesignerItemViewModel DataItem { get; private set; }
 
 		public bool ShowConnectors
 		{

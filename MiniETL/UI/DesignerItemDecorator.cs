@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Media;
 using MiniETL.Adorners;
+using MiniETL.Utils;
 
 namespace MiniETL.UI
 {
@@ -39,10 +39,13 @@ namespace MiniETL.UI
 			{
 				AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(this);
 
+				var itemsControl = FrameworkUtils.GetParent<ItemsControl>(typeof(ItemsControl), this);
+				var container = itemsControl.ItemContainerGenerator.ContainerFromItem(DataContext);
+
 				if (adornerLayer != null)
 				{
-					var designerItem = DataContext as ContentControl;
-					_adorner = new ResizeRotateAdorner(designerItem);
+					var designerItem = (FrameworkElement) container;
+					_adorner = new ResizeAdorner(designerItem);
 					adornerLayer.Add(_adorner);
 
 					if (ShowDecorator)

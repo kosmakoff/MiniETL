@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -122,14 +123,14 @@ namespace MiniETL.UI
 			_zoomThumb.Height = ScrollViewer.ViewportHeight * scale;
 			Canvas.SetLeft(_zoomThumb, xOffset + ScrollViewer.HorizontalOffset * scale);
 			Canvas.SetTop(_zoomThumb, yOffset + ScrollViewer.VerticalOffset * scale);
+
+			Debug.WriteLine("scale = {0:0.000}, xOffset = {1:0.000}, yOffset = {2:0.000}, X = {3:0.000}, Y = {4:0.000}", scale, xOffset, yOffset,
+				xOffset + ScrollViewer.HorizontalOffset * scale, yOffset + ScrollViewer.VerticalOffset * scale);
 		}
 
 		private void DesignerCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
 		{
-			// TODO: what the hell did the author want to say with this code???
-			//divide the value by 10 so that it is more smooth
-			double value = Math.Max(0, e.Delta / 10);
-			value = Math.Min(e.Delta, 10);
+			double value = Math.Min(e.Delta, 10);
 			_zoomSlider.Value += value;
 		}
 

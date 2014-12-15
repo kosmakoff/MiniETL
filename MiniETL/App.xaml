@@ -5,10 +5,10 @@
     <Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="pack://application:,,,/Resources/Styles/DesignerItem.xaml" />
+				<ResourceDictionary Source="/MiniETL;component/Resources/Styles/DesignerItem.xaml" />
 
-				<ResourceDictionary Source="pack://application:,,,/Resources/Styles/Components/FileInputComponent.xaml" />
-				<ResourceDictionary Source="pack://application:,,,/Resources/Styles/Components/FileOutputComponent.xaml" />
+				<ResourceDictionary Source="/MiniETL;component/Resources/Styles/Components/FileInputComponent.xaml" />
+				<ResourceDictionary Source="/MiniETL;component/Resources/Styles/Components/FileOutputComponent.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>

@@ -1,6 +1,6 @@
 ﻿namespace MiniETL.ViewModels.Components
 {
-	public class FileOutputComponentDesignerViewModel : DesignerItemViewModelBase
+	public class FileOutputComponentDesignerViewModel : DesignerItemViewModel
 	{
 		public FileOutputComponentDesignerViewModel()
 		{

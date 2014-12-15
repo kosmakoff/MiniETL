@@ -6,12 +6,12 @@ namespace MiniETL.Components
 	public class FileInputComponent : ComponentBase
 	{
 		public static readonly DependencyProperty FileNameProperty = DependencyProperty.Register(
-			"FileName", typeof (DependencyProperty), typeof (FileInputComponent), new PropertyMetadata(default(DependencyProperty)));
+			"FileName", typeof (string), typeof (FileInputComponent), new PropertyMetadata(string.Empty));
 
 		[DisplayName(@"File Name")]
-		public DependencyProperty FileName
+		public string FileName
 		{
-			get { return (DependencyProperty) GetValue(FileNameProperty); }
+			get { return (string) GetValue(FileNameProperty); }
 			set { SetValue(FileNameProperty, value); }
 		}
 	}

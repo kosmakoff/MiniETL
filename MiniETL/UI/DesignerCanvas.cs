@@ -8,6 +8,7 @@ using System.Windows.Input;
 using MiniETL.Adorners;
 using MiniETL.Components;
 using MiniETL.UI.DiagramDesigner.Controls;
+using MiniETL.ViewModels;
 
 namespace MiniETL.UI
 {
@@ -18,31 +19,21 @@ namespace MiniETL.UI
 		public DesignerCanvas()
 		{
 			AllowDrop = true;
-
 		}
 
 		public Connector SourceConnector { get; set; }
 
-		public IEnumerable<DesignerItem> SelectedItems
-		{
-			get { return Children.OfType<DesignerItem>().Where(item => item.IsSelected); }
-		}
-
-		public void DeselectAll()
-		{
-			foreach (DesignerItem item in SelectedItems)
-			{
-				item.IsSelected = false;
-			}
-		}
-
 		protected override void OnMouseDown(MouseButtonEventArgs e)
 		{
 			base.OnMouseDown(e);
-			if (e.Source == this)
+			if (e.LeftButton == MouseButtonState.Pressed && e.Source == this)
 			{
 				_dragStartPoint = e.GetPosition(this);
-				DeselectAll();
+
+				var vm = (IDiagramViewModel) DataContext;
+				if (!(Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
+					vm.ClearSelectedItemsCommand.Execute(null);
+				
 				e.Handled = true;
 			}
 		}
@@ -77,10 +68,11 @@ namespace MiniETL.UI
 			if (compgen == null)
 				return;
 
-			var container = (ComponentsContainer)DataContext;
+			var diagramViewModel = (DiagramViewModel)DataContext;
 			ComponentBase component = compgen.GenerateComponent();
-			component.Name = string.Format("{0} {1}", compgen.DisplayName, container.GetNextCounter(component.GetType()));
+			component.Name = string.Format("{0} {1}", compgen.DisplayName, diagramViewModel.GetNextCounter(component.GetType()));
 
+			/*
 			var designerItem = new DesignerItem {Content = component};
 
 			Point position = e.GetPosition(this);
@@ -94,6 +86,13 @@ namespace MiniETL.UI
 
 			DeselectAll();
 			designerItem.IsSelected = true;
+			*/
+
+			((IDiagramViewModel) DataContext).ClearSelectedItemsCommand.Execute(null);
+			Point position = e.GetPosition(this);
+
+
+
 
 			e.Handled = true;
 		}

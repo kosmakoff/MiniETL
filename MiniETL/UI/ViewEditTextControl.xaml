@@ -7,36 +7,29 @@
              xmlns:converters="clr-namespace:MiniETL.Converters"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:ui="clr-namespace:MiniETL.UI"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
-			 DataContext="{Binding RelativeSource={RelativeSource Self}}">
+             mc:Ignorable="d" x:Name="MainControl"
+             d:DesignHeight="300" d:DesignWidth="300">
 	<UserControl.Resources>
 		<converters:VisibilityConverter x:Key="VisibilityConverter"/>
+		<converters:VisibilityConverter x:Key="InvertedVisibilityConverter" IsInverted="True"/>
 	</UserControl.Resources>
 	<ItemsControl>
-		<Grid x:Name="GridEditMode" Visibility="{Binding Path=IsEditMode, Converter={StaticResource VisibilityConverter}}">
+		<Grid x:Name="GridEditMode" Visibility="{Binding IsEditMode, Converter={StaticResource VisibilityConverter}, ElementName=MainControl}">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
-			<TextBox Grid.Column="0" Text="{Binding Path=EditableText, Mode=TwoWay}" Margin="5,0,0,0" />
+			<TextBox Grid.Column="0" Text="{Binding Path=EditableText, Mode=TwoWay, ElementName=MainControl}" Margin="5,0,0,0" />
 			<Button Grid.Column="1" x:Name="ButtonSave" Margin="5,0,0,0" Click="ButtonSave_OnClick">
 				<Image Source="/Resources/Images/Check.png" />
 			</Button>
 		</Grid>
-		<Grid x:Name="GridViewMode">
+		<Grid x:Name="GridViewMode" Visibility="{Binding IsEditMode, Converter={StaticResource InvertedVisibilityConverter}, ElementName=MainControl}">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
-			<Grid.Visibility>
-				<Binding Path="IsEditMode" Converter="{StaticResource VisibilityConverter}">
-					<Binding.ConverterParameter>
-						<system:Boolean>True</system:Boolean>
-					</Binding.ConverterParameter>
-				</Binding>
-			</Grid.Visibility>
-			<ui:TextBlockEx Grid.Column="0" Text="{Binding Path=EditableText, Mode=OneWay}"
+			<ui:TextBlockEx Grid.Column="0" Text="{Binding Path=EditableText, Mode=OneWay, ElementName=MainControl}"
 					   IsHitTestVisible="False" Margin="5,0,0,0" VerticalAlignment="Center" FontWeight="Bold" />
 			<Button Grid.Column="1" x:Name="ButtonEdit" Margin="5,0,0,0" VerticalAlignment="Center" Click="ButtonEdit_OnClick">
 				<Image Source="/Resources/Images/Pencil.png" />

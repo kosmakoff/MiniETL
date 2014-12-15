@@ -9,11 +9,25 @@ namespace MiniETL.ViewModels
 {
 	public class MainWindowViewModel : INPCBase
 	{
+		private DiagramViewModel _diagramViewModel;
+
 		public ToolboxViewModel ToolboxViewModel { get; private set; }
+
+		public DiagramViewModel DiagramViewModel
+		{
+			get { return _diagramViewModel; }
+			set
+			{
+				if (Equals(value, _diagramViewModel)) return;
+				_diagramViewModel = value;
+				OnPropertyChanged();
+			}
+		}
 
 		public MainWindowViewModel()
 		{
 			ToolboxViewModel = new ToolboxViewModel();
+			DiagramViewModel = new DiagramViewModel();
 
 			InitCommands();
 		}
@@ -27,7 +41,7 @@ namespace MiniETL.ViewModels
 
 		private void ExecuteDeleteSelectedItemsCommand(object parameter)
 		{
-			MessageBox.Show(App.Current.MainWindow, "Not implemented yet");
+			MessageBox.Show(Application.Current.MainWindow, "Not implemented yet");
 		}
 	}
 }

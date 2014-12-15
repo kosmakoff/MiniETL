@@ -8,12 +8,13 @@ namespace MiniETL.Converters
 	[ValueConversion(typeof(bool), typeof(Visibility))]
 	public class VisibilityConverter : IValueConverter
 	{
+		public bool IsInverted { get; set; }
+
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			var visible = (bool)value;
-			var invert = parameter != null && (bool)parameter;
 
-			return visible && !invert || !visible && invert
+			return visible && !IsInverted || !visible && IsInverted
 				? Visibility.Visible
 				: Visibility.Collapsed;
 		}

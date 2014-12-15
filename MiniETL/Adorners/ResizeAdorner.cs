@@ -4,17 +4,17 @@ using System.Windows.Media;
 
 namespace MiniETL.Adorners
 {
-	class RotationAdorner : Adorner
+	public class ResizeAdorner : Adorner
 	{
-		private readonly RotationChrome _chrome;
+		private readonly ResizeChrome _chrome;
 		private readonly VisualCollection _visuals;
 
-		public RotationAdorner(UIElement designerItem) 
+		public ResizeAdorner(FrameworkElement designerItem)
 			: base(designerItem)
 		{
 			SnapsToDevicePixels = true;
-			_chrome = new RotationChrome { DataContext = designerItem };
-			_visuals = new VisualCollection(this) { _chrome };
+			_chrome = new ResizeChrome {DataContext = designerItem.DataContext};
+			_visuals = new VisualCollection(this) {_chrome};
 		}
 
 		protected override int VisualChildrenCount

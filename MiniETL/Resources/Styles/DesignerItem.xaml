@@ -1,25 +1,29 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:ui="clr-namespace:MiniETL.UI">
+                    xmlns:ui="clr-namespace:MiniETL.UI"
+                    xmlns:viewModel="clr-namespace:MiniETL.ViewModels"
+                    xmlns:attachedProperties="clr-namespace:MiniETL.AttachedProperties">
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="SizeChrome.xaml" />
-		<ResourceDictionary Source="RotationChrome.xaml" />
-		<ResourceDictionary Source="ResizeRotateChrome.xaml" />
+		<ResourceDictionary Source="ResizeChrome.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 
 	<ControlTemplate x:Key="MoveThumbTemplate"  TargetType="{x:Type ui:MoveThumb}">
 		<Rectangle Fill="Transparent"/>
 	</ControlTemplate>
 
-	<Style TargetType="{x:Type ui:DesignerItem}">
-		<Setter Property="MinHeight" Value="100"/>
-		<Setter Property="MinWidth" Value="150"/>
-		<Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
-		<Setter Property="SnapsToDevicePixels" Value="true"/>
-		<Setter Property="Template">
+	<Style x:Key="DesignerItemStyle" TargetType="{x:Type ContentPresenter}">
+		<Setter Property="Canvas.Top" Value="{Binding Top}" />
+		<Setter Property="Canvas.Left" Value="{Binding Left}" />
+		<Setter Property="Width" Value="{Binding Width}" />
+		<Setter Property="Height" Value="{Binding Height}" />
+		<Setter Property="attachedProperties:SelectionProps.EnabledForSelection" Value="True" />
+		<Setter Property="attachedProperties:ItemConnectProps.EnabledForConnection" Value="True" />
+		<Setter Property="SnapsToDevicePixels" Value="True" />
+		<Setter Property="ContentTemplate">
 			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type ui:DesignerItem}">
-					<Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+				<DataTemplate DataType="{x:Type viewModel:DesignerItemViewModel}">
+					<Grid x:Name="PART_OuterGrid">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />
@@ -34,21 +38,21 @@
 										<ColumnDefinition Width="*" />
 									</Grid.ColumnDefinitions>
 									<Ellipse Grid.Column="0" Width="12" Height="12" Fill="BlueViolet" VerticalAlignment="Center" Margin="2,0,0,0" />
-									<ui:ViewEditTextControl Grid.Column="1" EditableText="{Binding Component.Name, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+									<ui:ViewEditTextControl Grid.Column="1" EditableText="{Binding Component.Name}"/>
 								</Grid>
 							</Grid>
 						</Border>
 						<Border BorderThickness="1" BorderBrush="Black" Grid.Row="1" Background="Beige" x:Name="BorderContent">
-							<ContentPresenter x:Name="PART_ContentPresenter" Content="{TemplateBinding ContentControl.Content}" Margin="5"/>
+							<ContentPresenter x:Name="PART_ContentPresenter" Content="{Binding Component}" Margin="5"/>
 						</Border>
-						<ui:DesignerItemDecorator Grid.Row="0" Grid.RowSpan="2" x:Name="PART_DesignerItemDecorator"/>
+						<ui:DesignerItemDecorator Grid.Row="0" Grid.RowSpan="2" x:Name="PART_DesignerItemDecorator" />
 					</Grid>
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsSelected" Value="True">
+					<DataTemplate.Triggers>
+						<DataTrigger Binding="{Binding IsSelected}" Value="True">
 							<Setter TargetName="PART_DesignerItemDecorator" Property="ShowDecorator" Value="True"/>
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
+						</DataTrigger>
+					</DataTemplate.Triggers>
+				</DataTemplate>
 			</Setter.Value>
 		</Setter>
 	</Style>

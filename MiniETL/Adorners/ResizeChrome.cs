@@ -8,11 +8,11 @@ using System.Windows.Controls;
 
 namespace MiniETL.Adorners
 {
-	public class ResizeRotateChrome : Control
+	public class ResizeChrome : Control
 	{
-		static ResizeRotateChrome()
+		static ResizeChrome()
 		{
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(ResizeRotateChrome), new FrameworkPropertyMetadata(typeof(ResizeRotateChrome)));
+			DefaultStyleKeyProperty.OverrideMetadata(typeof(ResizeChrome), new FrameworkPropertyMetadata(typeof(ResizeChrome)));
 		}
 	}
 }
