@@ -41,7 +41,14 @@ namespace MiniETL.ViewModels
 
 		private void ExecuteDeleteSelectedItemsCommand(object parameter)
 		{
-			MessageBox.Show(Application.Current.MainWindow, "Not implemented yet");
+			var itemsToRemove = DiagramViewModel.SelectedItems;
+
+			// TODO: select connections and remove them, too
+
+			foreach (var item in itemsToRemove)
+			{
+				DiagramViewModel.RemoveItemCommand.Execute(item);
+			}
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace MiniETL.UI
 {
@@ -33,12 +34,44 @@ namespace MiniETL.UI
 
 		private void ButtonSave_OnClick(object sender, RoutedEventArgs e)
 		{
-			IsEditMode = false;
+			SetViewMode();
 		}
 
 		private void ButtonEdit_OnClick(object sender, RoutedEventArgs e)
 		{
+			SetEditMode();
+		}
+
+		private void EditableText_OnPreviewKeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Return || e.Key == Key.Enter)
+			{
+				SetViewMode();
+				e.Handled = true;
+			}
+		}
+
+		private void EditableText_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+		{
+			var textBox = (TextBox) sender;
+
+			if (string.IsNullOrWhiteSpace(textBox.Text))
+			{
+				e.Handled = true;
+				return;
+			}
+
+			SetViewMode();
+		}
+
+		public void SetEditMode()
+		{
 			IsEditMode = true;
+		}
+
+		public void SetViewMode()
+		{
+			IsEditMode = false;
 		}
 	}
 }

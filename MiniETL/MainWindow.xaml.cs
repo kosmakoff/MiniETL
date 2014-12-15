@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using MiniETL.Components;
 using MiniETL.ViewModels;
 
 namespace MiniETL
@@ -22,15 +21,6 @@ namespace MiniETL
 
 		private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
 		{
-			ViewModel.DiagramViewModel.AddItemCommand.Execute(
-				new DesignerItemViewModel
-				{
-					Component = new FileInputComponent {Name = "First Input", FileName = @"c:\temp\1.png"},
-					Top = 100,
-					Left = 100,
-					Width = 200,
-					Height = 150
-				});
 		}
 	}
 }

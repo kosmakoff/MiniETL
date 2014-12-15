@@ -69,7 +69,11 @@ namespace MiniETL.ViewModels
 
 		private void ExecuteRemoveItemCommand(object param)
 		{
-			
+			var item = param as SelectableDesignerItemViewModelBase;
+			if (item != null)
+			{
+				Items.Remove(item);
+			}
 		}
 
 		private void ExecuteClearSelectedItemsCommand(object param)
