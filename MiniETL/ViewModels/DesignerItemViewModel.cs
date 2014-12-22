@@ -1,53 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using MiniETL.Components;
-using MiniETL.UI.DiagramDesigner.Controls;
 
 namespace MiniETL.ViewModels
 {
 	public class DesignerItemViewModel : SelectableDesignerItemViewModelBase
 	{
-		private readonly List<FullyCreatedConnectorInfo> _connectors = new List<FullyCreatedConnectorInfo>();
 		private double _left, _top;
 		private bool _showConnectors;
 		private double _height;
 		private double _width;
 
-		public DesignerItemViewModel(int id, IDiagramViewModel parent, double left, double top)
-			: base(id, parent)
+		public DesignerItemViewModel(IDiagramViewModel parent, ComponentBase component)
+			: base(parent)
 		{
-			_left = left;
-			_top = top;
+			Component = component;
 
 			Init();
 		}
 
-		public DesignerItemViewModel()
-		{
-			Init();
-		}
-
-		public ComponentBase Component { get; set; }
-
-		public FullyCreatedConnectorInfo TopConnector
-		{
-			get { return _connectors[0]; }
-		}
-
-		public FullyCreatedConnectorInfo BottomConnector
-		{
-			get { return _connectors[1]; }
-		}
-
-		public FullyCreatedConnectorInfo LeftConnector
-		{
-			get { return _connectors[2]; }
-		}
-
-		public FullyCreatedConnectorInfo RightConnector
-		{
-			get { return _connectors[3]; }
-		}
+		public ComponentBase Component { get; private set; }
 
 		public static double MinHeight = 100;
 		public static double MinWidth = 150;
@@ -98,6 +70,9 @@ namespace MiniETL.ViewModels
 			}
 		}
 
+		public List<FullyCreatedConnectorInfo> InputConnectors { get; private set; }
+		public List<FullyCreatedConnectorInfo> OutputConnectors { get; private set; }
+
 		public bool ShowConnectors
 		{
 			get { return _showConnectors; }
@@ -106,23 +81,14 @@ namespace MiniETL.ViewModels
 				if (_showConnectors == value) return;
 
 				_showConnectors = value;
-				TopConnector.ShowConnectors = value;
-				BottomConnector.ShowConnectors = value;
-				LeftConnector.ShowConnectors = value;
-				RightConnector.ShowConnectors = value;
 				OnPropertyChanged();
 			}
 		}
 
 		private void Init()
 		{
-			_connectors.Add(new FullyCreatedConnectorInfo(this, ConnectorOrientation.Top));
-			_connectors.Add(new FullyCreatedConnectorInfo(this, ConnectorOrientation.Bottom));
-			_connectors.Add(new FullyCreatedConnectorInfo(this, ConnectorOrientation.Left));
-			_connectors.Add(new FullyCreatedConnectorInfo(this, ConnectorOrientation.Right));
-
-			Height = 65;
-			Width = 65;
+			InputConnectors = Component.GetInputConnectors();
+			OutputConnectors = Component.GetOutputConnectors();
 
 			ShowConnectors = false;
 		}

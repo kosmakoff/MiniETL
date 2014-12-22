@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:components="clr-namespace:MiniETL.Components"
                     xmlns:markupExtensions="clr-namespace:MiniETL.MarkupExtensions">
-	<DataTemplate DataType="{x:Type components:FileInputComponentGenerator}">
+
+	<DataTemplate DataType="{x:Type components:TextCapitalizerComponentGenerator}">
 		<TextBlock Text="{Binding Path=DisplayName}" TextTrimming="CharacterEllipsis">
 			<TextBlock.ToolTip>
 				<ToolTip>
@@ -10,5 +11,10 @@
 				</ToolTip>
 			</TextBlock.ToolTip>
 		</TextBlock>
+	</DataTemplate>
+	
+	<DataTemplate DataType="{x:Type components:TextCapitalizerComponent}">
+		<TextBlock Text="Text capitalizer doesn't have any configurable properties" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="WrapWithOverflow"
+				   FontWeight="Bold"/>
 	</DataTemplate>
 </ResourceDictionary>

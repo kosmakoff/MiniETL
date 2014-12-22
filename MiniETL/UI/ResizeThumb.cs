@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Documents;
-using System.Windows.Media;
-using MiniETL.Adorners;
 using MiniETL.ViewModels;
 
 namespace MiniETL.UI

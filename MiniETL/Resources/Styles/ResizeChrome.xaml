@@ -2,19 +2,17 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:ui="clr-namespace:MiniETL.UI"
                     xmlns:adorners="clr-namespace:MiniETL.Adorners">
-	<Style TargetType="{x:Type Shape}" x:Key="ThumbCorner">
-		<Setter Property="SnapsToDevicePixels" Value="true" />
-		<Setter Property="Stroke" Value="#FFC8C8C8" />
-		<Setter Property="StrokeThickness" Value=".5" />
-		<Setter Property="Width" Value="7" />
-		<Setter Property="Height" Value="7" />
-		<Setter Property="Margin" Value="-2" />
-		<Setter Property="Fill">
+
+	<Style TargetType="{x:Type ui:ResizeThumb}">
+		<Setter Property="Template">
 			<Setter.Value>
-				<RadialGradientBrush Center="0.2, 0.2" GradientOrigin="0.2, 0.2" RadiusX="0.8" RadiusY="0.8">
-					<GradientStop Color="LightGray" Offset="0.0" />
-					<GradientStop Color="Gray" Offset="0.8" />
-				</RadialGradientBrush>
+				<ControlTemplate TargetType="{x:Type ui:ResizeThumb}">
+					<Canvas Width="16" Height="16" >
+						<Path Data="M13,2 a 1,1 180 0 1 2,0 l 0,11 a 2,2 90 0 1 -2,2 l -11,0 a 1,1 180 0 1 0,-2 l 10,0 a 1,1 90 0 0 1,-1 z"
+							  Stretch="Fill" Canvas.Left="1" Canvas.Top="1" Fill="Black">
+						</Path>
+					</Canvas>
+				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
 	</Style>
@@ -24,22 +22,8 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type adorners:ResizeChrome}">
 					<Grid>
-						<Grid Opacity="0" Margin="-3">
-							<ui:ResizeThumb Height="3" Cursor="SizeNS" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
-							<ui:ResizeThumb Width="3" Cursor="SizeWE" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
-							<ui:ResizeThumb Width="3" Cursor="SizeWE" VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
-							<ui:ResizeThumb Height="3" Cursor="SizeNS" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
-							<ui:ResizeThumb Width="7" Height="7" Margin="-2" Cursor="SizeNWSE" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-							<ui:ResizeThumb Width="7" Height="7" Margin="-2" Cursor="SizeNESW" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-							<ui:ResizeThumb Width="7" Height="7" Margin="-2" Cursor="SizeNESW" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-							<ui:ResizeThumb Width="7" Height="7" Margin="-2" Cursor="SizeNWSE" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
-						</Grid>
-						<Grid IsHitTestVisible="False" Opacity="1" Margin="-3">
-							<Rectangle SnapsToDevicePixels="True" StrokeThickness="1" Margin="1" Stroke="LightGray"/>
-							<Ellipse Style="{StaticResource ThumbCorner}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-							<Ellipse Style="{StaticResource ThumbCorner}" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-							<Ellipse Style="{StaticResource ThumbCorner}" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-							<Ellipse Style="{StaticResource ThumbCorner}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+						<Grid Margin="-3">
+							<ui:ResizeThumb Margin="-2" Cursor="SizeNWSE" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
 						</Grid>
 					</Grid>
 				</ControlTemplate>

@@ -9,6 +9,7 @@
 
 				<ResourceDictionary Source="/MiniETL;component/Resources/Styles/Components/FileInputComponent.xaml" />
 				<ResourceDictionary Source="/MiniETL;component/Resources/Styles/Components/FileOutputComponent.xaml" />
+				<ResourceDictionary Source="/MiniETL;component/Resources/Styles/Components/TextCapitalizerComponent.xaml" />				
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>

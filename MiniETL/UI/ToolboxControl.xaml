@@ -8,16 +8,8 @@
 	xmlns:attachedProperties="clr-namespace:MiniETL.AttachedProperties"
 	mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300"
 	d:DataContext="{d:DesignInstance designTime:ToolboxViewModel, IsDesignTimeCreatable=True}">
-	<UserControl.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/MiniETL;component/Resources/Styles/Components/FileInputComponentGenerator.xaml" />
-				<ResourceDictionary Source="/MiniETL;component/Resources/Styles/Components/FIleOutputComponentGenerator.xaml" />
-			</ResourceDictionary.MergedDictionaries>
-		</ResourceDictionary>
-	</UserControl.Resources>
 	<StackPanel>
-		<Expander Header="File I/O" IsExpanded="True">
+		<Expander Header="Common" IsExpanded="True">
 			<ItemsControl ItemsSource="{Binding ToolboxItems}">
 				<ItemsControl.Template>
 					<ControlTemplate TargetType="{x:Type ItemsControl}">

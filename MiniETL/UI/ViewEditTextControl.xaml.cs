@@ -67,6 +67,7 @@ namespace MiniETL.UI
 		public void SetEditMode()
 		{
 			IsEditMode = true;
+			EditableTextBox.Focus();
 		}
 
 		public void SetViewMode()

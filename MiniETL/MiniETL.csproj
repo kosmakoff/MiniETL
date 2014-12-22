@@ -71,6 +71,8 @@
     <Compile Include="Components\FileOutputComponent.cs" />
     <Compile Include="Components\FileOutputComponentGenerator.cs" />
     <Compile Include="Components\FileInputComponentGenerator.cs" />
+    <Compile Include="Components\TextCapitalizerComponent.cs" />
+    <Compile Include="Components\TextCapitalizerComponentGenerator.cs" />
     <Compile Include="Converters\DoubleFormatConverter.cs" />
     <Compile Include="Converters\NegateRotationConverter.cs" />
     <Compile Include="Converters\TransformConverter.cs" />
@@ -87,7 +89,6 @@
     <Compile Include="UI\MoveThumb.cs" />
     <Compile Include="UI\ResizeThumb.cs" />
     <Compile Include="UI\TextBlockEx.cs" />
-    <Compile Include="UI\Toolbox.cs" />
     <Compile Include="UI\ToolboxControl.xaml.cs">
       <DependentUpon>ToolboxControl.xaml</DependentUpon>
     </Compile>
@@ -97,18 +98,17 @@
     </Compile>
     <Compile Include="UI\ZoomBox.cs" />
     <Compile Include="Utils\FrameworkUtils.cs" />
-    <Compile Include="ViewModels\Components\FileOutputComponentDesignerViewModel.cs" />
     <Compile Include="ViewModels\ConnectorInfoBase.cs" />
-    <Compile Include="ViewModels\ConnectorViewModel.cs" />
+    <Compile Include="ViewModels\ConnectorKind.cs" />
+    <Compile Include="ViewModels\ConnectionViewModel.cs" />
     <Compile Include="ViewModels\DesignerItemViewModel.cs" />
-    <Compile Include="ViewModels\DesignTime\DiagramViewModel.cs" />
     <Compile Include="ViewModels\DesignTime\ToolboxViewModel.cs" />
     <Compile Include="ViewModels\DiagramViewModel.cs" />
-    <Compile Include="ViewModels\Components\FileInputComponentDesignerViewModel.cs" />
     <Compile Include="ViewModels\FullyCreatedConnectorInfo.cs" />
     <Compile Include="ViewModels\IDiagramViewModel.cs" />
     <Compile Include="ViewModels\INpcBase.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\PartCreatedConnectorInfo.cs" />
     <Compile Include="ViewModels\SelectableDesignerItemViewModelBase.cs" />
     <Compile Include="ViewModels\SimpleCommand.cs" />
     <Compile Include="ViewModels\ToolboxViewModel.cs" />
@@ -124,15 +124,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Resources\Styles\Components\FileInputComponentGenerator.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Resources\Styles\Components\FileInputComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Styles\Components\FIleOutputComponentGenerator.xaml">
+    <Page Include="Resources\Styles\Components\TextCapitalizerComponent.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -140,7 +136,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Styles\ConnectorItem.xaml">
+    <Page Include="Resources\Styles\Connection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\Connector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

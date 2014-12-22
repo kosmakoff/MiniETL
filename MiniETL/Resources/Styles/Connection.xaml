@@ -3,5 +3,6 @@
                     xmlns:ui="clr-namespace:MiniETL.UI">
 	<ResourceDictionary.MergedDictionaries>
 	</ResourceDictionary.MergedDictionaries>
-
+	<Style x:Key="ConnectionStyle" TargetType="{x:Type ContentPresenter}">
+	</Style>
 </ResourceDictionary>

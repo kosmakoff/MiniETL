@@ -6,6 +6,7 @@
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="SizeChrome.xaml" />
 		<ResourceDictionary Source="ResizeChrome.xaml" />
+		<ResourceDictionary Source="Connector.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 
 	<ControlTemplate x:Key="MoveThumbTemplate"  TargetType="{x:Type ui:MoveThumb}">
@@ -45,11 +46,47 @@
 						<Border BorderThickness="1" BorderBrush="Black" Grid.Row="1" Background="Beige" x:Name="BorderContent">
 							<ContentPresenter x:Name="PART_ContentPresenter" Content="{Binding Component}" Margin="5"/>
 						</Border>
+
 						<ui:DesignerItemDecorator Grid.Row="0" Grid.RowSpan="2" x:Name="PART_DesignerItemDecorator" />
+
+						<ItemsControl Grid.Row="0" Grid.RowSpan="2" ItemsSource="{Binding InputConnectors, Mode=OneTime}">
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Vertical" Margin="-7,35,0,0" />
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate DataType="{x:Type viewModel:FullyCreatedConnectorInfo}">
+									<Canvas Width="7" Height="16">
+										<Path Data="{Binding Source={StaticResource InputConnectorGeometry}}" Fill="Black" />
+									</Canvas>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+
+						<ItemsControl Grid.Row="0" Grid.RowSpan="2" ItemsSource="{Binding OutputConnectors, Mode=OneTime}">
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Vertical" Margin="0,35,-7,0" />
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate DataType="{x:Type viewModel:FullyCreatedConnectorInfo}">
+									<Canvas Width="7" Height="16">
+										<Path Data="{Binding Source={StaticResource OutputConnectorGeometry}}" Fill="Black" />
+									</Canvas>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
 					</Grid>
 					<DataTemplate.Triggers>
 						<DataTrigger Binding="{Binding IsSelected}" Value="True">
 							<Setter TargetName="PART_DesignerItemDecorator" Property="ShowDecorator" Value="True"/>
+							<Setter TargetName="PART_OuterGrid" Property="Effect">
+								<Setter.Value>
+									<DropShadowEffect Opacity="0.7" BlurRadius="10" />
+								</Setter.Value>
+							</Setter>
 						</DataTrigger>
 					</DataTemplate.Triggers>
 				</DataTemplate>

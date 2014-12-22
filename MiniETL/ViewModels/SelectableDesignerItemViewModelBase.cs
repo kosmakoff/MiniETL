@@ -11,9 +11,8 @@ namespace MiniETL.ViewModels
 	{
 		private bool _isSelected;
 
-		protected SelectableDesignerItemViewModelBase(int id, IDiagramViewModel parent)
+		protected SelectableDesignerItemViewModelBase(IDiagramViewModel parent)
 		{
-			Id = id;
 			Parent = parent;
 		}
 
@@ -23,7 +22,6 @@ namespace MiniETL.ViewModels
 		}
 
 		public IDiagramViewModel Parent { get; set; }
-		public int Id { get; set; }
 
 		public SimpleCommand SelectItemCommand { get; private set; }
 

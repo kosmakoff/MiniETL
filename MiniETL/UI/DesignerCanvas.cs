@@ -68,16 +68,14 @@ namespace MiniETL.UI
 			if (compgen == null)
 				return;
 
-			var diagramViewModel = (DiagramViewModel)DataContext;
-			ComponentBase component = compgen.GenerateComponent();
-			component.Name = string.Format("{0} {1}", compgen.DisplayName, diagramViewModel.GetNextCounter(component.GetType()));
-
-			((IDiagramViewModel) DataContext).ClearSelectedItemsCommand.Execute(null);
+			((IDiagramViewModel)DataContext).ClearSelectedItemsCommand.Execute(null);
 			Point position = e.GetPosition(this);
 
-			var itemBase = new DesignerItemViewModel
+			var diagramViewModel = (DiagramViewModel)DataContext;
+
+			var component = compgen.GenerateComponent();
+			var viewModel = new DesignerItemViewModel(diagramViewModel, component)
 			{
-				Component = component,
 				Left = Math.Max(0, position.X - DesignerItemViewModel.MinWidth/2),
 				Top = Math.Max(0, position.Y - DesignerItemViewModel.MinHeight/2),
 				Width = DesignerItemViewModel.MinWidth,
@@ -85,7 +83,11 @@ namespace MiniETL.UI
 				IsSelected = true
 			};
 
-			diagramViewModel.AddItemCommand.Execute(itemBase);
+			component.Init(viewModel);
+			
+			component.Name = string.Format("{0} {1}", compgen.DisplayName, diagramViewModel.GetNextCounter(component.GetType()));
+
+			diagramViewModel.AddItemCommand.Execute(viewModel);
 
 			e.Handled = true;
 		}

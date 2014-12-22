@@ -1,0 +1,11 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<StreamGeometry x:Key="InputConnectorGeometry">
+		M 0,0 l 7,0 l 0,16 l -7,0 l 0,-2 a 6,6 180 0 0 0,-12 z
+	</StreamGeometry>
+	
+	<StreamGeometry x:Key="OutputConnectorGeometry">
+		M 0,0 l 2,0 l 0,3 a 5,5 180 0 1 0,10 l 0,3 l -2,0 z
+	</StreamGeometry>
+</ResourceDictionary>

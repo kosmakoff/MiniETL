@@ -25,9 +25,9 @@ namespace MiniETL.StyleSelectors
 				return (Style)itemsControl.FindResource("DesignerItemStyle");
 			}
 
-			if (item is ConnectorViewModel)
+			if (item is ConnectionViewModel)
 			{
-				return (Style)itemsControl.FindResource("ConnectorItemStyle");
+				return (Style)itemsControl.FindResource("ConnectionStyle");
 			}
 
 			return null;

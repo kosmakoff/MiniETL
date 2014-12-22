@@ -12,7 +12,7 @@
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="/MiniETL;component/Resources/Styles/ZoomBox.xaml" />
 				<ResourceDictionary Source="/MiniETL;component/Resources/Styles/DesignerItem.xaml" />
-				<ResourceDictionary Source="/MiniETL;component/Resources/Styles/ConnectorItem.xaml" />
+				<ResourceDictionary Source="/MiniETL;component/Resources/Styles/Connection.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</UserControl.Resources>

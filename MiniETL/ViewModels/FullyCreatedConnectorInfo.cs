@@ -1,26 +1,31 @@
-﻿using MiniETL.UI.DiagramDesigner.Controls;
+﻿using System;
+using MiniETL.UI.DiagramDesigner.Controls;
 
 namespace MiniETL.ViewModels
 {
+	/// <summary>
+	/// Represents the connector that is attached to designer item
+	/// </summary>
 	public class FullyCreatedConnectorInfo : ConnectorInfoBase
 	{
-		private bool _showConnectors;
+		private bool _visible;
 
-		public FullyCreatedConnectorInfo(DesignerItemViewModel dataItem, ConnectorOrientation orientation) : base(orientation)
+		public FullyCreatedConnectorInfo(DesignerItemViewModel dataItem, ConnectorKind kind, ConnectorOrientation orientation, Type dataType)
+			: base(kind, orientation, dataType)
 		{
 			DataItem = dataItem;
 		}
 
 		public DesignerItemViewModel DataItem { get; private set; }
 
-		public bool ShowConnectors
+		public bool Visible
 		{
-			get { return _showConnectors; }
+			get { return _visible; }
 			set
 			{
-				if (_showConnectors != value)
+				if (_visible != value)
 				{
-					_showConnectors = value;
+					_visible = value;
 					OnPropertyChanged();
 				}
 			}

@@ -11,6 +11,7 @@ namespace MiniETL.ViewModels
 		{
 			_toolboxItems.Add(new FileInputComponentGenerator());
 			_toolboxItems.Add(new FileOutputComponentGenerator());
+			_toolboxItems.Add(new TextCapitalizerComponentGenerator());
 		}
 
 		public List<ComponentGeneratorBase> ToolboxItems

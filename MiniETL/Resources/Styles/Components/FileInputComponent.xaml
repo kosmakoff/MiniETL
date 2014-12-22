@@ -2,6 +2,16 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:components="clr-namespace:MiniETL.Components"
                     xmlns:markupExtensions="clr-namespace:MiniETL.MarkupExtensions">
+	<DataTemplate DataType="{x:Type components:FileInputComponentGenerator}">
+		<TextBlock Text="{Binding Path=DisplayName}" TextTrimming="CharacterEllipsis">
+			<TextBlock.ToolTip>
+				<ToolTip>
+					<TextBlock Text="{Binding Path=Description}" />
+				</ToolTip>
+			</TextBlock.ToolTip>
+		</TextBlock>
+	</DataTemplate>
+	
 	<DataTemplate DataType="{x:Type components:FileInputComponent}">
 		<Grid VerticalAlignment="Top">
 			<Grid.ColumnDefinitions>

@@ -18,7 +18,6 @@ namespace MiniETL
 			DataContext = ViewModel;
 		}
 
-
 		private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
 		{
 		}
