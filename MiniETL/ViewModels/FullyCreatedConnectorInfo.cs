@@ -1,5 +1,5 @@
 ﻿using System;
-using MiniETL.UI.DiagramDesigner.Controls;
+using System.Windows;
 
 namespace MiniETL.ViewModels
 {
@@ -9,14 +9,15 @@ namespace MiniETL.ViewModels
 	public class FullyCreatedConnectorInfo : ConnectorInfoBase
 	{
 		private bool _visible;
+		private Point _connectorHotspot;
 
-		public FullyCreatedConnectorInfo(DesignerItemViewModel dataItem, ConnectorKind kind, ConnectorOrientation orientation, Type dataType)
+		public FullyCreatedConnectorInfo(DesignerItemViewModel designerItem, ConnectorKind kind, ConnectorOrientation orientation, Type dataType)
 			: base(kind, orientation, dataType)
 		{
-			DataItem = dataItem;
+			DesignerItem = designerItem;
 		}
 
-		public DesignerItemViewModel DataItem { get; private set; }
+		public DesignerItemViewModel DesignerItem { get; private set; }
 
 		public bool Visible
 		{
@@ -29,6 +30,22 @@ namespace MiniETL.ViewModels
 					OnPropertyChanged();
 				}
 			}
+		}
+
+		public Point ConnectorHotspot
+		{
+			get { return _connectorHotspot; }
+			set
+			{
+				if (value.Equals(_connectorHotspot)) return;
+				_connectorHotspot = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public Point GetConnectionPoint()
+		{
+			return ConnectorHotspot;
 		}
 	}
 }

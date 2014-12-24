@@ -2,7 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:ui="clr-namespace:MiniETL.UI"
                     xmlns:viewModel="clr-namespace:MiniETL.ViewModels"
-                    xmlns:attachedProperties="clr-namespace:MiniETL.AttachedProperties">
+                    xmlns:attachedProperties="clr-namespace:MiniETL.AttachedProperties"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="SizeChrome.xaml" />
 		<ResourceDictionary Source="ResizeChrome.xaml" />
@@ -14,10 +16,10 @@
 	</ControlTemplate>
 
 	<Style x:Key="DesignerItemStyle" TargetType="{x:Type ContentPresenter}">
-		<Setter Property="Canvas.Top" Value="{Binding Top}" />
-		<Setter Property="Canvas.Left" Value="{Binding Left}" />
-		<Setter Property="Width" Value="{Binding Width}" />
-		<Setter Property="Height" Value="{Binding Height}" />
+		<Setter Property="Canvas.Top" Value="{Binding Path=(viewModel:DesignerItemViewModel.Top)}" />
+		<Setter Property="Canvas.Left" Value="{Binding Path=(viewModel:DesignerItemViewModel.Left)}" />
+		<Setter Property="Width" Value="{Binding Path=(viewModel:DesignerItemViewModel.Width)}" />
+		<Setter Property="Height" Value="{Binding Path=(viewModel:DesignerItemViewModel.Height)}" />
 		<Setter Property="attachedProperties:SelectionProps.EnabledForSelection" Value="True" />
 		<Setter Property="attachedProperties:ItemConnectProps.EnabledForConnection" Value="True" />
 		<Setter Property="SnapsToDevicePixels" Value="True" />
@@ -57,9 +59,7 @@
 							</ItemsControl.ItemsPanel>
 							<ItemsControl.ItemTemplate>
 								<DataTemplate DataType="{x:Type viewModel:FullyCreatedConnectorInfo}">
-									<Canvas Width="7" Height="16">
-										<Path Data="{Binding Source={StaticResource InputConnectorGeometry}}" Fill="Black" />
-									</Canvas>
+									<ui:Connector />
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>
 						</ItemsControl>
@@ -72,9 +72,7 @@
 							</ItemsControl.ItemsPanel>
 							<ItemsControl.ItemTemplate>
 								<DataTemplate DataType="{x:Type viewModel:FullyCreatedConnectorInfo}">
-									<Canvas Width="7" Height="16">
-										<Path Data="{Binding Source={StaticResource OutputConnectorGeometry}}" Fill="Black" />
-									</Canvas>
+									<ui:Connector />
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>
 						</ItemsControl>

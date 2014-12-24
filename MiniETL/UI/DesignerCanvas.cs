@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using MiniETL.Adorners;
 using MiniETL.Components;
-using MiniETL.UI.DiagramDesigner.Controls;
 using MiniETL.ViewModels;
 
 namespace MiniETL.UI
@@ -83,8 +80,6 @@ namespace MiniETL.UI
 				IsSelected = true
 			};
 
-			component.Init(viewModel);
-			
 			component.Name = string.Format("{0} {1}", compgen.DisplayName, diagramViewModel.GetNextCounter(component.GetType()));
 
 			diagramViewModel.AddItemCommand.Execute(viewModel);

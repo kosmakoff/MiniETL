@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using MiniETL.Utils.PathFinding;
 
 namespace MiniETL.ViewModels
 {
@@ -30,6 +25,8 @@ namespace MiniETL.ViewModels
 			DiagramViewModel = new DiagramViewModel();
 
 			InitCommands();
+
+			ConnectionViewModel.PathFinder = new StraightLinePathFinder();
 		}
 
 		public SimpleCommand DeleteSelectedItemsCommand { get; private set; }

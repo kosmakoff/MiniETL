@@ -16,6 +16,8 @@ namespace MiniETL.ViewModels
 		{
 			Component = component;
 
+			
+
 			Init();
 		}
 
@@ -87,6 +89,8 @@ namespace MiniETL.ViewModels
 
 		private void Init()
 		{
+			Component.Init(this);
+
 			InputConnectors = Component.GetInputConnectors();
 			OutputConnectors = Component.GetOutputConnectors();
 

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using MiniETL.Annotations;
 
@@ -13,6 +15,12 @@ namespace MiniETL.ViewModels
 		{
 			var handler = PropertyChanged;
 			if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+		}
+
+		protected void OnPropertyChanged<TProperty>(Expression<Func<TProperty>> property)
+		{
+			var memberExpression = (MemberExpression) property.Body;
+			OnPropertyChanged(memberExpression.Member.Name);
 		}
 	}
 }

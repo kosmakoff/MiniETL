@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using MiniETL.UI.DiagramDesigner.Controls;
 using MiniETL.ViewModels;
 
 namespace MiniETL.Components

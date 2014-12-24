@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
-using MiniETL.UI.DiagramDesigner.Controls;
 using MiniETL.ViewModels;
 
 namespace MiniETL.Components

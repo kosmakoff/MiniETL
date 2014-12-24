@@ -4,17 +4,13 @@ using System.Windows.Data;
 
 namespace MiniETL.Converters
 {
-	public class DoubleFormatConverter : IValueConverter
+	[ValueConversion(typeof(double), typeof(double))]
+	public class DoubleFormatConverter : ConverterBase<DoubleFormatConverter>
 	{
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			double d = (double)value;
 			return Math.Round(d);
-		}
-
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			return null;
 		}
 	}
 }

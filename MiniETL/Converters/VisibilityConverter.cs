@@ -5,23 +5,19 @@ using System.Windows.Data;
 
 namespace MiniETL.Converters
 {
-	[ValueConversion(typeof(bool), typeof(Visibility))]
-	public class VisibilityConverter : IValueConverter
+	[ValueConversion(typeof (bool), typeof (Visibility), ParameterType = typeof (bool))]
+	public class VisibilityConverter : ConverterBase<VisibilityConverter>
 	{
-		public bool IsInverted { get; set; }
+		private static readonly NullableBoolConverter BoolConverter = new NullableBoolConverter();
 
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			var visible = (bool)value;
+			var visible = (bool) value;
+			var invert = ((bool?)BoolConverter.ConvertFrom(parameter)).GetValueOrDefault();
 
-			return visible && !IsInverted || !visible && IsInverted
+			return visible && !invert || !visible && invert
 				? Visibility.Visible
 				: Visibility.Collapsed;
-		}
-
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			throw new NotSupportedException();
 		}
 	}
 }

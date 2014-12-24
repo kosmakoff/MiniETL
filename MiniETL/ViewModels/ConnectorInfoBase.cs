@@ -1,5 +1,4 @@
 ﻿using System;
-using MiniETL.UI.DiagramDesigner.Controls;
 
 namespace MiniETL.ViewModels
 {
@@ -7,23 +6,13 @@ namespace MiniETL.ViewModels
 	{
 		public ConnectorKind Kind { get; private set; }
 		public ConnectorOrientation Orientation { get; private set; }
-		public Type ConnecorDataType { get; private set; }
+		public Type ConnectorDataType { get; private set; }
 
-		protected ConnectorInfoBase(ConnectorKind kind, ConnectorOrientation orientation, Type connecorDataType)
+		protected ConnectorInfoBase(ConnectorKind kind, ConnectorOrientation orientation, Type connectorDataType)
 		{
 			Kind = kind;
 			Orientation = orientation;
-			ConnecorDataType = connecorDataType;
+			ConnectorDataType = connectorDataType;
 		}
-
-		static ConnectorInfoBase()
-		{
-			ConnectorHeight = 8;
-			ConnectorWidth = 8;
-		}
-
-		public static double ConnectorHeight { get; private set; }
-
-		public static double ConnectorWidth { get; private set; }
 	}
 }

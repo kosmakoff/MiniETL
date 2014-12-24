@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using MiniETL.UI.DiagramDesigner.Controls;
 
 namespace MiniETL.ViewModels
 {
