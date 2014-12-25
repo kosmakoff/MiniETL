@@ -102,7 +102,6 @@
     <Compile Include="Utils\PathFinding\IPathFinder.cs" />
     <Compile Include="Utils\PathFinding\OrthogonalPathFinder.cs" />
     <Compile Include="Utils\PathFinding\StraightLinePathFinder.cs" />
-    <Compile Include="Utils\PointHelper.cs" />
     <Compile Include="ViewModels\ConnectorInfoBase.cs" />
     <Compile Include="ViewModels\ConnectorKind.cs" />
     <Compile Include="ViewModels\ConnectionViewModel.cs" />

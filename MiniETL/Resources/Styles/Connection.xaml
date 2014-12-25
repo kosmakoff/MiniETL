@@ -18,12 +18,34 @@
 			<Setter.Value>
 				<DataTemplate DataType="{x:Type viewModels:ConnectionViewModel}">
 					<Canvas Margin="0" x:Name="selectedGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-						<Polyline x:Name="poly" Stroke="Gray" StrokeThickness="6" Points="{Binding Path=ConnectionPoints, Converter={x:Static converters:ConnectionPathConverter.Instance}}" />
-						<Path x:Name="startJoint"
-							  Data="{Binding Source={StaticResource InputJointGeometry}}"/>
-						<Path x:Name="endJoint" Visibility="{Binding Path=IsFullConnection, Converter={x:Static converters:VisibilityConverter.Instance}}"
-							  Data="{Binding Source={StaticResource OutputJointGeometry}}"/>
+						<Polyline
+							x:Name="connection" Stroke="Gray" StrokeThickness="4" StrokeLineJoin="Round"
+							Points="{Binding Path=ConnectionPoints, Converter={x:Static converters:ConnectionPathConverter.Instance}}"/>
+						<Path
+							x:Name="startJoint" Fill="Gray" Margin="1,-8,0,0"
+							Canvas.Left="{Binding SourcePointRelative.X}" Canvas.Top="{Binding SourcePointRelative.Y}"
+							Data="{Binding Source={StaticResource OutputJointGeometry}}">
+							<Path.RenderTransform>
+								<RotateTransform x:Name="startJointRot" />
+							</Path.RenderTransform>
+						</Path>
+						<Path
+							x:Name="endJoint" Fill="Gray" Margin="-10,-8,0,0"
+							Visibility="{Binding Path=IsFullConnection, Converter={x:Static converters:VisibilityConverter.Instance}}"
+							Canvas.Left="{Binding SinkPointRelative.X}" Canvas.Top="{Binding SinkPointRelative.Y}"
+							Data="{Binding Source={StaticResource InputJointGeometry}}">
+							<Path.RenderTransform>
+								<RotateTransform x:Name="endJointRot" />
+							</Path.RenderTransform>
+						</Path>
 					</Canvas>
+					<DataTemplate.Triggers>
+						<DataTrigger Binding="{Binding IsSelected}" Value="True">
+							<Setter TargetName="connection" Property="Stroke" Value="Black" />
+							<Setter TargetName="startJoint" Property="Fill" Value="Black" />
+							<Setter TargetName="endJoint" Property="Fill" Value="Black" />
+						</DataTrigger>
+					</DataTemplate.Triggers>
 				</DataTemplate>
 			</Setter.Value>
 		</Setter>

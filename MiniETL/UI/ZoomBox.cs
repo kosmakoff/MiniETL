@@ -123,9 +123,6 @@ namespace MiniETL.UI
 			_zoomThumb.Height = ScrollViewer.ViewportHeight * scale;
 			Canvas.SetLeft(_zoomThumb, xOffset + ScrollViewer.HorizontalOffset * scale);
 			Canvas.SetTop(_zoomThumb, yOffset + ScrollViewer.VerticalOffset * scale);
-
-			Debug.WriteLine("scale = {0:0.000}, xOffset = {1:0.000}, yOffset = {2:0.000}, X = {3:0.000}, Y = {4:0.000}", scale, xOffset, yOffset,
-				xOffset + ScrollViewer.HorizontalOffset * scale, yOffset + ScrollViewer.VerticalOffset * scale);
 		}
 
 		private void DesignerCanvas_MouseWheel(object sender, MouseWheelEventArgs e)

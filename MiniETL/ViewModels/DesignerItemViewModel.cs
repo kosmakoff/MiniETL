@@ -16,8 +16,6 @@ namespace MiniETL.ViewModels
 		{
 			Component = component;
 
-			
-
 			Init();
 		}
 

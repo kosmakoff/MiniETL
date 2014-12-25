@@ -49,8 +49,9 @@
 		<Label Grid.Row="1" Grid.Column="0" Content="Data Type" Margin="0,0,10,0" VerticalAlignment="Center" />
 		<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=(viewModel:FullyCreatedConnectorInfo.ConnectorDataType), Mode=OneTime}" VerticalAlignment="Center" />
 
+		<!-- for debug only -->
 		<Label Grid.Row="2" Grid.Column="0" Content="Position (DBG)" Margin="0,0,10,0" VerticalAlignment="Center" />
-		<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=(viewModel:FullyCreatedConnectorInfo.ConnectorHotspot), Mode=OneWay}" VerticalAlignment="Center" />
+		<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=(viewModel:FullyCreatedConnectorInfo.ConnectorTopLeftCorner), Mode=OneWay}" VerticalAlignment="Center" />
 	</Grid>
 	
 	<Style TargetType="{x:Type ui:Connector}">
@@ -58,7 +59,7 @@
 		<Setter Property="Height" Value="16" />
 		<Setter Property="SnapsToDevicePixels" Value="True" />
 		<Setter Property="RootElement" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}}" />
-		<Setter Property="Hotspot" Value="{Binding Path=(viewModel:FullyCreatedConnectorInfo.ConnectorHotspot), Mode=OneWayToSource}"></Setter>
+		<Setter Property="Hotspot" Value="{Binding Path=(viewModel:FullyCreatedConnectorInfo.ConnectorTopLeftCorner), Mode=OneWayToSource}"></Setter>
 		<Style.Triggers>
 			<DataTrigger Binding="{Binding Path=(viewModel:FullyCreatedConnectorInfo.Kind)}" Value="Input">
 				<Setter Property="Template">

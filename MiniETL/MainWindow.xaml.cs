@@ -22,27 +22,30 @@ namespace MiniETL
 		private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
 		{
 #if DEBUG
-			var inputFile = new DesignerItemViewModel(ViewModel.DiagramViewModel, new FileInputComponent {Name = "Input File"})
+
+			var fileInputComponent = new FileInputComponent {Name = "Input File"};
+			var fileInputDesignerItem = new DesignerItemViewModel(ViewModel.DiagramViewModel, fileInputComponent)
 			{
 				Width = 150,
 				Height = 100,
 				Left = 50,
 				Top = 250
 			};
-			ViewModel.DiagramViewModel.Items.Add(inputFile);
+			ViewModel.DiagramViewModel.Items.Add(fileInputDesignerItem);
 
-			var capser = new DesignerItemViewModel(ViewModel.DiagramViewModel, new TextCapitalizerComponent {Name = "Capser"})
+			var textCapitalizerComponent = new TextCapitalizerComponent {Name = "Capser"};
+			var capserDesignerItem = new DesignerItemViewModel(ViewModel.DiagramViewModel, textCapitalizerComponent)
 			{
 				Width = 150,
 				Height = 100,
-				Left = 250,
+				Left = 300,
 				Top = 275
 			};
-			ViewModel.DiagramViewModel.Items.Add(capser);
+			ViewModel.DiagramViewModel.Items.Add(capserDesignerItem);
 
-			var connector1 = new ConnectionViewModel(ViewModel.DiagramViewModel, inputFile.OutputConnectors[0],
-				capser.InputConnectors[0]);
-			ViewModel.DiagramViewModel.Items.Add(connector1);
+			var connection1 = new ConnectionViewModel(ViewModel.DiagramViewModel, fileInputComponent.FileContentsOutputConnector,
+				textCapitalizerComponent.StringInputConnector);
+			ViewModel.DiagramViewModel.Items.Add(connection1);
 #endif
 		}
 	}

@@ -9,7 +9,7 @@ namespace MiniETL.ViewModels
 	public class FullyCreatedConnectorInfo : ConnectorInfoBase
 	{
 		private bool _visible;
-		private Point _connectorHotspot;
+		private Point _connectorTopLeftCorner;
 
 		public FullyCreatedConnectorInfo(DesignerItemViewModel designerItem, ConnectorKind kind, ConnectorOrientation orientation, Type dataType)
 			: base(kind, orientation, dataType)
@@ -32,20 +32,37 @@ namespace MiniETL.ViewModels
 			}
 		}
 
-		public Point ConnectorHotspot
+		public Point ConnectorTopLeftCorner
 		{
-			get { return _connectorHotspot; }
+			get { return _connectorTopLeftCorner; }
 			set
 			{
-				if (value.Equals(_connectorHotspot)) return;
-				_connectorHotspot = value;
+				if (value.Equals(_connectorTopLeftCorner)) return;
+				_connectorTopLeftCorner = value;
 				OnPropertyChanged();
 			}
 		}
 
 		public Point GetConnectionPoint()
 		{
-			return ConnectorHotspot;
+			var returnValue = ConnectorTopLeftCorner;
+
+			// returnValue.Offset(DesignerItem.Left, DesignerItem.Top);
+
+			// offset to connector logical center
+			switch (Kind)
+			{
+				case ConnectorKind.Output:
+					returnValue.Offset(2, 8);
+					break;
+				case ConnectorKind.Input:
+					returnValue.Offset(0, 8);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
+			return returnValue;
 		}
 	}
 }

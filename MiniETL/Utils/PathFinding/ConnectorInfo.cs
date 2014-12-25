@@ -5,10 +5,16 @@ namespace MiniETL.Utils.PathFinding
 {
 	public struct ConnectorInfo
 	{
-		public double DesignerItemLeft { get; set; }
-		public double DesignerItemTop { get; set; }
-		public Size DesignerItemSize { get; set; }
-		public Point Position { get; set; }
+		public Point HotspotPosition { get; set; }
 		public ConnectorOrientation Orientation { get; set; }
+
+		public static ConnectorInfo Create(ConnectorOrientation orientation, Point hotspotPosition)
+		{
+			return new ConnectorInfo
+			{
+				Orientation = orientation,
+				HotspotPosition = hotspotPosition
+			};
+		}
 	}
 }
