@@ -5,7 +5,8 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
 	xmlns:viewModel="clr-namespace:MiniETL.ViewModels"
 	xmlns:ui="clr-namespace:MiniETL.UI"
-	xmlns:converters="clr-namespace:MiniETL.Converters">
+	xmlns:converters="clr-namespace:MiniETL.Converters"
+	xmlns:utils="clr-namespace:MiniETL.Utils">
 	
 	<StreamGeometry x:Key="InputConnectorGeometry">
 		M 0,0 l 7,0 l 0,16 l -7,0 l 0,-2 a 6,6 180 0 0 0,-12 z
@@ -34,10 +35,15 @@
 	</CombinedGeometry>
 
 	<Grid x:Key="ConnectorTooltip" x:Shared="False">
+		
+		<Grid.Resources>
+			<converters:GridLengthConverter x:Key="GridLengthConverter" GridLengthWhenTrue="Auto" GridLengthWhenFalse="0" />
+		</Grid.Resources>
+		
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
+			<RowDefinition Height="{Binding Source={x:Static utils:RuntimeUtils.IsDebug}, Converter={StaticResource GridLengthConverter}}" />
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto" />
@@ -51,8 +57,10 @@
 		<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=(viewModel:FullyCreatedConnectorInfo.ConnectorDataType), Mode=OneTime}" VerticalAlignment="Center" />
 
 		<!-- for debug only -->
-		<Label Grid.Row="2" Grid.Column="0" Content="Position (DBG)" Margin="0,0,10,0" VerticalAlignment="Center" />
-		<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=(viewModel:FullyCreatedConnectorInfo.ConnectorTopLeftCorner), Mode=OneWay}" VerticalAlignment="Center" />
+		<Label Grid.Row="2" Grid.Column="0" Content="Position (DBG)" Margin="0,0,10,0" VerticalAlignment="Center"
+			   Visibility="{Binding Source={x:Static utils:RuntimeUtils.IsDebug}, Converter={x:Static converters:VisibilityConverter.Instance}}" />
+		<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=(viewModel:FullyCreatedConnectorInfo.ConnectorTopLeftCorner), Mode=OneWay}" VerticalAlignment="Center"
+				   Visibility="{Binding Source={x:Static utils:RuntimeUtils.IsDebug}, Converter={x:Static converters:VisibilityConverter.Instance}}" />
 	</Grid>
 	
 	<Style TargetType="{x:Type ui:Connector}">

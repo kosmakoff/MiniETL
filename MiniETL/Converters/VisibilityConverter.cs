@@ -12,7 +12,7 @@ namespace MiniETL.Converters
 
 		public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			var visible = (bool) value;
+			var visible = ((bool?) BoolConverter.ConvertFrom(value)).GetValueOrDefault();
 			var invert = ((bool?)BoolConverter.ConvertFrom(parameter)).GetValueOrDefault();
 
 			return visible && !invert || !visible && invert

@@ -76,6 +76,7 @@
     <Compile Include="Converters\ConnectionPathConverter.cs" />
     <Compile Include="Converters\ConverterBase.cs" />
     <Compile Include="Converters\DoubleFormatConverter.cs" />
+    <Compile Include="Converters\GridLengthConverter.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="MarkupExtensions\DisplayNameExtension.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Utils\PathFinding\IPathFinder.cs" />
     <Compile Include="Utils\PathFinding\OrthogonalPathFinder.cs" />
     <Compile Include="Utils\PathFinding\StraightLinePathFinder.cs" />
+    <Compile Include="Utils\RuntimeUtils.cs" />
     <Compile Include="ViewModels\ConnectorInfoBase.cs" />
     <Compile Include="ViewModels\ConnectorKind.cs" />
     <Compile Include="ViewModels\ConnectionViewModel.cs" />

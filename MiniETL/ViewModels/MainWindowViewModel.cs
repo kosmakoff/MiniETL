@@ -1,4 +1,6 @@
-﻿using MiniETL.Utils.PathFinding;
+﻿using System.Collections.Generic;
+using System.Linq;
+using MiniETL.Utils.PathFinding;
 
 namespace MiniETL.ViewModels
 {
@@ -38,9 +40,17 @@ namespace MiniETL.ViewModels
 
 		private void ExecuteDeleteSelectedItemsCommand(object parameter)
 		{
-			var itemsToRemove = DiagramViewModel.SelectedItems;
+			var selectedDesignerItems = DiagramViewModel.SelectedItems;
 
-			// TODO: select connections and remove them, too
+			var connectionsToRemove = DiagramViewModel.Items.OfType<ConnectionViewModel>()
+				.Where(connectionViewModel =>
+					selectedDesignerItems.Contains(connectionViewModel.SourceConnectorInfo.DesignerItem) ||
+					selectedDesignerItems.Contains(((FullyCreatedConnectorInfo) connectionViewModel.SinkConnectorInfo).DesignerItem));
+
+			var itemsToRemove = new List<SelectableDesignerItemViewModelBase>();
+
+			itemsToRemove.AddRange(selectedDesignerItems);
+			itemsToRemove.AddRange(connectionsToRemove);
 
 			foreach (var item in itemsToRemove)
 			{
