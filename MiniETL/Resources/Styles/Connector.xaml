@@ -87,12 +87,30 @@
 						<DataTrigger Binding="{Binding Path=(viewModel:FullyCreatedConnectorInfo.Kind)}" Value="Output">
 							<Setter TargetName="ConnectorPath" Property="Data" Value="{StaticResource OutputConnectorGeometry}" />
 						</DataTrigger>
-						<DataTrigger Binding="{Binding Path=(viewModel:FullyCreatedConnectorInfo.CanStartConnection)}" Value="True">
-							<Setter TargetName="ConnectorCanvas" Property="Cursor" Value="Cross" />
-						</DataTrigger>
-						<Trigger Property="IsBuildingConnection" Value="True">
-							<Setter TargetName="ConnectorPath" Property="Fill" Value="LawnGreen" />
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="ConnectorPath" Property="Fill" Value="Red" />
 						</Trigger>
+						<Trigger Property="EnabledForConnection" Value="True">
+							<Setter TargetName="ConnectorCanvas" Property="Cursor" Value="Cross" />
+						</Trigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsBuildingConnection" Value="True" />
+								<Condition Property="EnabledForConnection" Value="True" />
+							</MultiTrigger.Conditions>
+							<MultiTrigger.Setters>
+								<Setter TargetName="ConnectorPath" Property="Fill" Value="LawnGreen" />
+							</MultiTrigger.Setters>
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsMouseOver" Value="True" />
+								<Condition Property="EnabledForConnection" Value="True" />
+							</MultiTrigger.Conditions>
+							<MultiTrigger.Setters>
+								<Setter TargetName="ConnectorPath" Property="Fill" Value="LawnGreen" />
+							</MultiTrigger.Setters>
+						</MultiTrigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>

@@ -16,6 +16,13 @@ namespace MiniETL.UI
 		public static Thickness OutputConnectorOffset = new Thickness(1, -8, 0, 0);
 		#endregion
 
+		private DesignerCanvas _designerCanvas;
+		
+		private DesignerCanvas DesignerCanvas
+		{
+			get { return _designerCanvas ?? (_designerCanvas = GetDesignerCanvas(this)); }
+		}
+
 		public ConnectorOrientation Orientation { get; set; }
 
 		public Connector()
@@ -25,10 +32,9 @@ namespace MiniETL.UI
 
 		protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
 		{
-			DesignerCanvas canvas = GetDesignerCanvas(this);
-			if (canvas != null && ConnectorInfo.CanStartConnection)
+			if (DesignerCanvas != null && ConnectorInfo.CanStartConnection)
 			{
-				canvas.SourceConnector = this;
+				DesignerCanvas.SourceConnector = this;
 				IsBuildingConnection = true;
 			}
 
@@ -37,33 +43,39 @@ namespace MiniETL.UI
 
 		protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
 		{
-			DesignerCanvas canvas = GetDesignerCanvas(this);
-			if (canvas == null)
+			if (DesignerCanvas == null)
 				return;
 
-			var fullyCreatedSourceInfo = (FullyCreatedConnectorInfo) canvas.SourceConnector.DataContext;
+			if (ConnectorInfo.CanEndConnection)
+			{
+				var fullyCreatedSourceInfo = (FullyCreatedConnectorInfo) DesignerCanvas.SourceConnector.DataContext;
 
-			var diagram = fullyCreatedSourceInfo.DesignerItem.Diagram;
+				var diagram = fullyCreatedSourceInfo.DesignerItem.Diagram;
 
-			var newConnection = new ConnectionViewModel(fullyCreatedSourceInfo.DesignerItem.Diagram,
-				canvas.SourceConnector.ConnectorInfo, ConnectorInfo);
+				var newConnection = new ConnectionViewModel(fullyCreatedSourceInfo.DesignerItem.Diagram,
+					DesignerCanvas.SourceConnector.ConnectorInfo, ConnectorInfo);
 
-			diagram.AddItemCommand.Execute(newConnection);
+				diagram.AddItemCommand.Execute(newConnection);
+			}
+			
+			DesignerCanvas.ResetPartialConnection();
 
-			canvas.ResetPartialConnection();
+			e.Handled = true;
 		}
 
 		protected override void OnMouseEnter(MouseEventArgs e)
 		{
+			UpdateEnabledForConnection();
+
 			if (e.LeftButton != MouseButtonState.Pressed)
 				return;
 
 			IsBuildingConnection = true;
 
-			DesignerCanvas canvas = GetDesignerCanvas(this);
-			if (canvas != null)
+			if (DesignerCanvas != null)
 			{
-				canvas.SinkConnector = this;
+				if (!ReferenceEquals(this, DesignerCanvas.SourceConnector))
+					DesignerCanvas.SinkConnector = this;
 			}
 
 			e.Handled = true;
@@ -71,16 +83,21 @@ namespace MiniETL.UI
 
 		protected override void OnMouseLeave(MouseEventArgs e)
 		{
-			DesignerCanvas canvas = GetDesignerCanvas(this);
-
-			if (canvas != null)
+			if (DesignerCanvas != null)
 			{
-				if (ReferenceEquals(this, canvas.SinkConnector))
+				if (ReferenceEquals(this, DesignerCanvas.SinkConnector))
 				{
 					IsBuildingConnection = false;
-					canvas.SinkConnector = null;
+					DesignerCanvas.SinkConnector = null;
 				}
 			}
+		}
+
+		private void UpdateEnabledForConnection()
+		{
+			EnabledForConnection =
+				DesignerCanvas.HasPartialConnection && ConnectorInfo.CanEndConnection ||
+				!DesignerCanvas.HasPartialConnection && ConnectorInfo.CanStartConnection;
 		}
 
 		// iterate through visual tree to get parent DesignerCanvas
@@ -142,6 +159,18 @@ namespace MiniETL.UI
 		{
 			get { return (bool) GetValue(IsBuildingConnectionProperty); }
 			set { SetValue(IsBuildingConnectionProperty, value); }
+		}
+
+		// connection started and current can end connection
+		// connection not started and current can start connection
+
+		public static readonly DependencyProperty EnabledForConnectionProperty = DependencyProperty.Register(
+			"EnabledForConnection", typeof (bool), typeof (Connector), new PropertyMetadata(default(bool)));
+
+		public bool EnabledForConnection
+		{
+			get { return (bool) GetValue(EnabledForConnectionProperty); }
+			set { SetValue(EnabledForConnectionProperty, value); }
 		}
 	}
 }

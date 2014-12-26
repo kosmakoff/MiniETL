@@ -38,6 +38,11 @@ namespace MiniETL.ViewModels
 			get { return Kind == ConnectorKind.Output; }
 		}
 
+		public bool CanEndConnection
+		{
+			get { return Kind == ConnectorKind.Input; }
+		}
+
 		public Point ConnectorTopLeftCorner
 		{
 			get { return _connectorTopLeftCorner; }
