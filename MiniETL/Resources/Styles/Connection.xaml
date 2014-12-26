@@ -22,7 +22,7 @@
 							x:Name="connection" Stroke="Gray" StrokeThickness="4" StrokeLineJoin="Round"
 							Points="{Binding Path=ConnectionPoints, Converter={x:Static converters:ConnectionPathConverter.Instance}}"/>
 						<Path
-							x:Name="startJoint" Fill="Gray" Margin="1,-8,0,0"
+							x:Name="startJoint" Fill="Gray" Margin="{x:Static ui:Connector.OutputConnectorOffset}"
 							Canvas.Left="{Binding SourcePointRelative.X}" Canvas.Top="{Binding SourcePointRelative.Y}"
 							Data="{Binding Source={StaticResource OutputJointGeometry}}">
 							<Path.RenderTransform>
@@ -30,7 +30,7 @@
 							</Path.RenderTransform>
 						</Path>
 						<Path
-							x:Name="endJoint" Fill="Gray" Margin="-10,-8,0,0"
+							x:Name="endJoint" Fill="Gray" Margin="{x:Static ui:Connector.InputConnectorOffset}"
 							Visibility="{Binding Path=IsFullConnection, Converter={x:Static converters:VisibilityConverter.Instance}}"
 							Canvas.Left="{Binding SinkPointRelative.X}" Canvas.Top="{Binding SinkPointRelative.Y}"
 							Data="{Binding Source={StaticResource InputJointGeometry}}">

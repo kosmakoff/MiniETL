@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,6 +9,13 @@ namespace MiniETL.UI
 {
 	public class Connector : Control
 	{
+		#region Statics-constants
+		public static double ConnectorWidth = 7d;
+		public static double ConnectorHeight = 16;
+		public static Thickness InputConnectorOffset = new Thickness(-10, -8, 0, 0);
+		public static Thickness OutputConnectorOffset = new Thickness(1, -8, 0, 0);
+		#endregion
+
 		public ConnectorOrientation Orientation { get; set; }
 
 		public Connector()
@@ -19,21 +25,77 @@ namespace MiniETL.UI
 
 		protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
 		{
-			base.OnMouseLeftButtonDown(e);
 			DesignerCanvas canvas = GetDesignerCanvas(this);
 			if (canvas != null)
 			{
 				canvas.SourceConnector = this;
+				IsBuildingConnection = true;
+			}
+
+			e.Handled = true;
+		}
+
+		protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
+		{
+			DesignerCanvas canvas = GetDesignerCanvas(this);
+			if (canvas == null)
+				return;
+
+			var fullyCreatedSourceInfo = (FullyCreatedConnectorInfo) canvas.SourceConnector.DataContext;
+
+			var diagram = fullyCreatedSourceInfo.DesignerItem.Diagram;
+
+			var newConnection = new ConnectionViewModel(fullyCreatedSourceInfo.DesignerItem.Diagram,
+				canvas.SourceConnector.ConnectorInfo, ConnectorInfo);
+
+			diagram.AddItemCommand.Execute(newConnection);
+
+			canvas.ResetPartialConnection();
+		}
+
+		protected override void OnMouseEnter(MouseEventArgs e)
+		{
+			if (e.LeftButton != MouseButtonState.Pressed)
+				return;
+
+			IsBuildingConnection = true;
+
+			DesignerCanvas canvas = GetDesignerCanvas(this);
+			if (canvas != null)
+			{
+				canvas.SinkConnector = this;
+			}
+
+			e.Handled = true;
+		}
+
+		protected override void OnMouseLeave(MouseEventArgs e)
+		{
+			DesignerCanvas canvas = GetDesignerCanvas(this);
+
+			if (canvas != null)
+			{
+				if (ReferenceEquals(this, canvas.SinkConnector))
+				{
+					IsBuildingConnection = false;
+					canvas.SinkConnector = null;
+				}
 			}
 		}
 
 		// iterate through visual tree to get parent DesignerCanvas
-		private DesignerCanvas GetDesignerCanvas(DependencyObject element)
+		private static DesignerCanvas GetDesignerCanvas(DependencyObject element)
 		{
 			while (element != null && !(element is DesignerCanvas))
 				element = VisualTreeHelper.GetParent(element);
 
-			return element as DesignerCanvas;
+			return (DesignerCanvas) element;
+		}
+
+		public FullyCreatedConnectorInfo ConnectorInfo
+		{
+			get { return (FullyCreatedConnectorInfo) DataContext; }
+			set { DataContext = value; }
 		}
 
 		private void ConnectorLayoutUpdated(object sender, EventArgs e)
@@ -71,6 +133,15 @@ namespace MiniETL.UI
 				return;
 
 			Hotspot = TransformToAncestor(RootElement).Transform(new Point(0, 0));
+		}
+
+		public static readonly DependencyProperty IsBuildingConnectionProperty = DependencyProperty.Register(
+			"IsBuildingConnection", typeof (bool), typeof (Connector), new PropertyMetadata(default(bool)));
+
+		public bool IsBuildingConnection
+		{
+			get { return (bool) GetValue(IsBuildingConnectionProperty); }
+			set { SetValue(IsBuildingConnectionProperty, value); }
 		}
 	}
 }

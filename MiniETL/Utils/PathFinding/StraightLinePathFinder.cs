@@ -20,7 +20,17 @@ namespace MiniETL.Utils.PathFinding
 			
 			return new List<Point> {lineStart, lineStartOffset, lineEndOffset, lineEnd};
 		}
-		
+
+		public List<Point> GetConnectionLine(ConnectorInfo source, Point sinkPoint, ConnectorOrientation preferredOrientation)
+		{
+			var lineStart = GetOffsetPoint(source.HotspotPosition, source.Orientation, SmallMargin);
+			var lineStartOffset = GetOffsetPoint(lineStart, source.Orientation, Margin);
+
+			var lineEnd = sinkPoint;
+
+			return new List<Point>{lineStart, lineStartOffset, lineEnd};
+		}
+
 		private static Point GetOffsetPoint(Point point, ConnectorOrientation orientation, int offset)
 		{
 			switch (orientation)
@@ -34,11 +44,6 @@ namespace MiniETL.Utils.PathFinding
 				default:
 					throw new ArgumentOutOfRangeException("orientation");
 			}
-		}
-
-		public List<Point> GetConnectionLine(ConnectorInfo source, Point sinkPoint, ConnectorOrientation preferredOrientation)
-		{
-			throw new NotImplementedException();
 		}
 	}
 }

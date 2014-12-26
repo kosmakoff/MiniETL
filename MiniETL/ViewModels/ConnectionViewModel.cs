@@ -14,8 +14,8 @@ namespace MiniETL.ViewModels
 		private Rect _area;
 		private List<Point> _connectionPoints;
 
-		public ConnectionViewModel(IDiagramViewModel parent, FullyCreatedConnectorInfo sourceConnectorInfo,
-			FullyCreatedConnectorInfo sinkConnectorInfo) : base(parent)
+		public ConnectionViewModel(IDiagramViewModel diagram, FullyCreatedConnectorInfo sourceConnectorInfo,
+			FullyCreatedConnectorInfo sinkConnectorInfo) : base(diagram)
 		{
 			Init(sourceConnectorInfo, sinkConnectorInfo);
 		}
@@ -75,11 +75,11 @@ namespace MiniETL.ViewModels
 				}
 				else
 				{
-					SinkPointAbsolute = ((PartCreatedConnectorInfo) SinkConnectorInfo).CurrentLocation;
+					var partCreatedConnectorInfo = (PartCreatedConnectorInfo) SinkConnectorInfo;
+					SinkPointAbsolute = partCreatedConnectorInfo.CurrentLocation;
 				}
 				
 				OnPropertyChanged();
-				OnPropertyChanged(() => IsFullConnection);
 			}
 		}
 
@@ -151,7 +151,7 @@ namespace MiniETL.ViewModels
 
 		private void Init(FullyCreatedConnectorInfo sourceConnectorInfo, ConnectorInfoBase sinkConnectorInfo)
 		{
-			Parent = sourceConnectorInfo.DesignerItem.Parent;
+			Diagram = sourceConnectorInfo.DesignerItem.Diagram;
 
 			SourceConnectorInfo = sourceConnectorInfo;
 			SinkConnectorInfo = sinkConnectorInfo;

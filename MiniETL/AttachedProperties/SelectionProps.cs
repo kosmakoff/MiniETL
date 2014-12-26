@@ -57,10 +57,10 @@ namespace MiniETL.AttachedProperties
 				}
 				else if (!selectableDesignerItemViewModelBase.IsSelected)
 				{
-					foreach (SelectableDesignerItemViewModelBase item in selectableDesignerItemViewModelBase.Parent.SelectedItems)
+					foreach (SelectableDesignerItemViewModelBase item in selectableDesignerItemViewModelBase.Diagram.SelectedItems)
 						item.IsSelected = false;
 
-					selectableDesignerItemViewModelBase.Parent.SelectedItems.Clear();
+					selectableDesignerItemViewModelBase.Diagram.SelectedItems.Clear();
 					selectableDesignerItemViewModelBase.IsSelected = true;
 				}
 			}

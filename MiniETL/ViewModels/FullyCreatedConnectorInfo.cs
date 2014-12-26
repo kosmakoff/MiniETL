@@ -15,6 +15,7 @@ namespace MiniETL.ViewModels
 			: base(kind, orientation, dataType)
 		{
 			DesignerItem = designerItem;
+			Visible = true;
 		}
 
 		public DesignerItemViewModel DesignerItem { get; private set; }
@@ -46,8 +47,6 @@ namespace MiniETL.ViewModels
 		public Point GetConnectionPoint()
 		{
 			var returnValue = ConnectorTopLeftCorner;
-
-			// returnValue.Offset(DesignerItem.Left, DesignerItem.Top);
 
 			// offset to connector logical center
 			switch (Kind)

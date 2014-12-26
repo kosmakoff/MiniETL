@@ -11,21 +11,81 @@ namespace MiniETL.UI
 {
 	public class DesignerCanvas : Canvas
 	{
-		private Point? _dragStartPoint;
+		private Point? _rubberbandSelectionStartPoint;
+		
+		private Connector _sourceConnector;
+		private Connector _sinkConnector;
+
+		private ConnectionViewModel _partialConnection;
 
 		public DesignerCanvas()
 		{
 			AllowDrop = true;
 		}
 
-		public Connector SourceConnector { get; set; }
+		public Connector SourceConnector
+		{
+			get { return _sourceConnector; }
+			set
+			{
+				if (value == null)
+				{
+					_sourceConnector = null;
+					return;
+				}
+
+				if (ReferenceEquals(_sourceConnector, value)) return;
+
+				_sourceConnector = value;
+
+				var sourceConnector = (FullyCreatedConnectorInfo) _sourceConnector.DataContext;
+				var point = sourceConnector.GetConnectionPoint();
+				_partialConnection = new ConnectionViewModel(sourceConnector,
+					new PartCreatedConnectorInfo(ConnectorKind.Input, sourceConnector.ConnectorDataType, point));
+
+				sourceConnector.DesignerItem.Diagram.AddItemCommand.Execute(_partialConnection);
+			}
+		}
+
+		public Connector SinkConnector
+		{
+			get { return _sinkConnector; }
+			set
+			{
+				if (ReferenceEquals(_sinkConnector, value)) return;
+
+				_sinkConnector = value;
+			}
+		}
+
+		public bool HasPartialConnection { get { return _partialConnection != null; } }
+
+		public void ResetPartialConnection()
+		{
+			if (_partialConnection != null)
+			{
+				var diagram = _partialConnection.SourceConnectorInfo.DesignerItem.Diagram;
+				diagram.RemoveItemCommand.Execute(_partialConnection);
+			}
+
+			_partialConnection = null;
+
+			if (SourceConnector != null)
+				SourceConnector.IsBuildingConnection = false;
+
+			if (SinkConnector != null)
+				SinkConnector.IsBuildingConnection = false;
+			
+			SourceConnector = null;
+			SinkConnector = null;
+		}
 
 		protected override void OnMouseDown(MouseButtonEventArgs e)
 		{
 			base.OnMouseDown(e);
-			if (e.LeftButton == MouseButtonState.Pressed && e.Source == this)
+			if (e.LeftButton == MouseButtonState.Pressed && ReferenceEquals(e.Source, this))
 			{
-				_dragStartPoint = e.GetPosition(this);
+				_rubberbandSelectionStartPoint = e.GetPosition(this);
 
 				var vm = (IDiagramViewModel) DataContext;
 				if (!(Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
@@ -37,23 +97,63 @@ namespace MiniETL.UI
 
 		protected override void OnMouseMove(MouseEventArgs e)
 		{
-			base.OnMouseMove(e);
-			if (e.LeftButton != MouseButtonState.Pressed)
+			if (SourceConnector != null)
 			{
-				_dragStartPoint = null;
-			}
-
-			if (_dragStartPoint.HasValue)
-			{
-				AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(this);
-				if (adornerLayer != null)
+				if (e.LeftButton == MouseButtonState.Pressed)
 				{
-					var adorner = new RubberbandAdorner(this, _dragStartPoint);
-					adornerLayer.Add(adorner);
+					/*
+					if (!IsMouseCaptured)
+						CaptureMouse();
+					 */
+
+					var sourceConnectorInfo = (FullyCreatedConnectorInfo) SourceConnector.DataContext;
+					var currentPoint = e.GetPosition(this);
+					_partialConnection.SinkConnectorInfo = new PartCreatedConnectorInfo(ConnectorKind.Input, sourceConnectorInfo.ConnectorDataType, currentPoint);
+				}
+			}
+			else
+			{
+				if (e.LeftButton != MouseButtonState.Pressed)
+				{
+					_rubberbandSelectionStartPoint = null;
 				}
 
-				e.Handled = true;
+				if (_rubberbandSelectionStartPoint.HasValue)
+				{
+					AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(this);
+					if (adornerLayer != null)
+					{
+						var adorner = new RubberbandAdorner(this, _rubberbandSelectionStartPoint);
+						adornerLayer.Add(adorner);
+					}
+				}
 			}
+
+			e.Handled = true;
+		}
+
+		protected override void OnMouseUp(MouseButtonEventArgs e)
+		{
+			/*
+			if (IsMouseCaptured)
+				ReleaseMouseCapture();
+			 */
+
+			if (SourceConnector != null)
+				SourceConnector.IsBuildingConnection = false;
+
+			if (SinkConnector != null)
+				SinkConnector.IsBuildingConnection = false;
+
+			if (SourceConnector != null && _partialConnection != null)
+			{
+				var sourceConnectorInfo = (FullyCreatedConnectorInfo) SourceConnector.DataContext;
+				sourceConnectorInfo.DesignerItem.Diagram.RemoveItemCommand.Execute(_partialConnection);
+			}
+
+			_partialConnection = null;
+			SourceConnector = null;
+			SinkConnector = null;
 		}
 
 		protected override void OnDrop(DragEventArgs e)

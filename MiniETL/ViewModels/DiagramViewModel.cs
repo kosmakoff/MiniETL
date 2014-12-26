@@ -62,7 +62,7 @@ namespace MiniETL.ViewModels
 			if (param is SelectableDesignerItemViewModelBase)
 			{
 				var item = (SelectableDesignerItemViewModelBase) param;
-				item.Parent = this;
+				item.Diagram = this;
 				Items.Add(item);
 			}
 		}

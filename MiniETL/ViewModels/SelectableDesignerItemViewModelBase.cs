@@ -11,17 +11,17 @@ namespace MiniETL.ViewModels
 	{
 		private bool _isSelected;
 
-		protected SelectableDesignerItemViewModelBase(IDiagramViewModel parent)
+		protected SelectableDesignerItemViewModelBase(IDiagramViewModel diagram)
 		{
-			Parent = parent;
+			Diagram = diagram;
 		}
 
 		public List<SelectableDesignerItemViewModelBase> SelectedItems
 		{
-			get { return Parent.SelectedItems; }
+			get { return Diagram.SelectedItems; }
 		}
 
-		public IDiagramViewModel Parent { get; set; }
+		public IDiagramViewModel Diagram { get; set; }
 
 		public SimpleCommand SelectItemCommand { get; private set; }
 

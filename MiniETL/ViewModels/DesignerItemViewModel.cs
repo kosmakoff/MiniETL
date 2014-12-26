@@ -11,8 +11,8 @@ namespace MiniETL.ViewModels
 		private double _height;
 		private double _width;
 
-		public DesignerItemViewModel(IDiagramViewModel parent, ComponentBase component)
-			: base(parent)
+		public DesignerItemViewModel(IDiagramViewModel diagram, ComponentBase component)
+			: base(diagram)
 		{
 			Component = component;
 
