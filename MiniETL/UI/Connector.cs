@@ -26,7 +26,7 @@ namespace MiniETL.UI
 		protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
 		{
 			DesignerCanvas canvas = GetDesignerCanvas(this);
-			if (canvas != null)
+			if (canvas != null && ConnectorInfo.CanStartConnection)
 			{
 				canvas.SourceConnector = this;
 				IsBuildingConnection = true;

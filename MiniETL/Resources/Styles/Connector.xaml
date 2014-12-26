@@ -73,7 +73,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ui:Connector}">
-					<Canvas x:Name="ConnectorCanvas" Background="Transparent"
+					<Canvas x:Name="ConnectorCanvas" Background="Transparent" Cursor="No"
 							Width="{x:Static ui:Connector.ConnectorWidth}" Height="{x:Static ui:Connector.ConnectorHeight}">
 						<Path x:Name="ConnectorPath" Fill="Black" />
 						<Canvas.ToolTip>
@@ -82,12 +82,13 @@
 					</Canvas>
 					<ControlTemplate.Triggers>
 						<DataTrigger Binding="{Binding Path=(viewModel:FullyCreatedConnectorInfo.Kind)}" Value="Input">
-							<Setter TargetName="ConnectorCanvas" Property="Cursor" Value="No" />
 							<Setter TargetName="ConnectorPath" Property="Data" Value="{StaticResource InputConnectorGeometry}" />
 						</DataTrigger>
 						<DataTrigger Binding="{Binding Path=(viewModel:FullyCreatedConnectorInfo.Kind)}" Value="Output">
-							<Setter TargetName="ConnectorCanvas" Property="Cursor" Value="Cross" />
 							<Setter TargetName="ConnectorPath" Property="Data" Value="{StaticResource OutputConnectorGeometry}" />
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Path=(viewModel:FullyCreatedConnectorInfo.CanStartConnection)}" Value="True">
+							<Setter TargetName="ConnectorCanvas" Property="Cursor" Value="Cross" />
 						</DataTrigger>
 						<Trigger Property="IsBuildingConnection" Value="True">
 							<Setter TargetName="ConnectorPath" Property="Fill" Value="LawnGreen" />
