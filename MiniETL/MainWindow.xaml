@@ -45,6 +45,11 @@
 			</MenuItem>
 			<MenuItem Header="_Help" IsEnabled="False" />
 		</Menu>
+		<StatusBar DockPanel.Dock="Bottom">
+			<StatusBarItem HorizontalAlignment="Right">
+				<TextBlock Text="Ready"></TextBlock>
+			</StatusBarItem>
+		</StatusBar>
 		<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="200" />
