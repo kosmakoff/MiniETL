@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 using MiniETL.Adorners;
 using MiniETL.Components;
 using MiniETL.ViewModels;
@@ -101,14 +102,14 @@ namespace MiniETL.UI
 			{
 				if (e.LeftButton == MouseButtonState.Pressed)
 				{
-					/*
-					if (!IsMouseCaptured)
-						CaptureMouse();
-					 */
+					//if (!IsMouseCaptured)
+					//	CaptureMouse();
 
 					var sourceConnectorInfo = (FullyCreatedConnectorInfo) SourceConnector.DataContext;
 					var currentPoint = e.GetPosition(this);
 					_partialConnection.SinkConnectorInfo = new PartCreatedConnectorInfo(ConnectorKind.Input, sourceConnectorInfo.ConnectorDataType, currentPoint);
+
+					// HitTesting(currentPoint);
 				}
 			}
 			else
@@ -134,16 +135,26 @@ namespace MiniETL.UI
 
 		protected override void OnMouseUp(MouseButtonEventArgs e)
 		{
-			/*
-			if (IsMouseCaptured)
-				ReleaseMouseCapture();
-			 */
+			//if (IsMouseCaptured)
+			//	ReleaseMouseCapture();
 
 			if (SourceConnector != null)
 				SourceConnector.IsBuildingConnection = false;
 
 			if (SinkConnector != null)
 				SinkConnector.IsBuildingConnection = false;
+
+			//if (SourceConnector != null && SinkConnector != null && SinkConnector.ConnectorInfo.CanEndConnection)
+			//{
+			//	var fullyCreatedSourceInfo = SourceConnector.ConnectorInfo;
+
+			//	var diagram = fullyCreatedSourceInfo.DesignerItem.Diagram;
+
+			//	var newConnection = new ConnectionViewModel(fullyCreatedSourceInfo.DesignerItem.Diagram,
+			//		SourceConnector.ConnectorInfo, SinkConnector.ConnectorInfo);
+
+			//	diagram.AddItemCommand.Execute(newConnection);
+			//}
 
 			if (SourceConnector != null && _partialConnection != null)
 			{
@@ -212,5 +223,33 @@ namespace MiniETL.UI
 			size.Height += 10;
 			return size;
 		}
+
+		//private void HitTesting(Point hitPoint)
+		//{
+		//	var hitObject = InputHitTest(hitPoint) as DependencyObject;
+
+		//	while (hitObject != null && !(hitObject is DesignerCanvas))
+		//	{
+		//		var connector = hitObject as Connector;
+		//		if (connector != null)
+		//		{
+		//			connector.UpdateEnabledForConnection();
+
+		//			if (!ReferenceEquals(connector, SourceConnector))
+		//			{
+		//				SinkConnector = connector;
+		//				SinkConnector.IsBuildingConnection = true;
+
+		//				return;
+		//			}
+		//		}
+		//		hitObject = VisualTreeHelper.GetParent(hitObject);
+		//	}
+
+		//	if (SinkConnector != null)
+		//		SinkConnector.IsBuildingConnection = false;
+
+		//	SinkConnector = null;
+		//}
 	}
 }

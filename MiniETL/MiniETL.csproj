@@ -87,6 +87,9 @@
     <Compile Include="UI\DiagramControl.xaml.cs">
       <DependentUpon>DiagramControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\FilePathInput.xaml.cs">
+      <DependentUpon>FilePathInput.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\MoveThumb.cs" />
     <Compile Include="UI\ResizeThumb.cs" />
     <Compile Include="UI\TextBlockEx.cs" />
@@ -175,6 +178,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\FilePathInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\ToolboxControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -218,6 +225,18 @@
   <ItemGroup>
     <Resource Include="Resources\Images\Check.png" />
     <Resource Include="Resources\Images\Pencil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Menu\NewFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Menu\OpenFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Menu\SaveFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Menu\Execute.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

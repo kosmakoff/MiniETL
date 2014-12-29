@@ -8,49 +8,51 @@
 	xmlns:attachedProperties="clr-namespace:MiniETL.AttachedProperties"
 	mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300"
 	d:DataContext="{d:DesignInstance designTime:ToolboxViewModel, IsDesignTimeCreatable=True}">
-	<StackPanel>
-		<Expander Header="Common" IsExpanded="True">
-			<ItemsControl ItemsSource="{Binding ToolboxItems}">
-				<ItemsControl.Template>
-					<ControlTemplate TargetType="{x:Type ItemsControl}">
-						<Border BorderThickness="{TemplateBinding Border.BorderThickness}"
-							Padding="{TemplateBinding Control.Padding}"
-							BorderBrush="{TemplateBinding Border.BorderBrush}"
-							Background="{TemplateBinding Panel.Background}"
-							SnapsToDevicePixels="True">
-							<ScrollViewer VerticalScrollBarVisibility="Auto">
-								<ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
-							</ScrollViewer>
-						</Border>
-					</ControlTemplate>
-				</ItemsControl.Template>
-				<ItemsControl.ItemsPanel>
-					<ItemsPanelTemplate>
-						<StackPanel Margin="0,5" Orientation="Vertical" />
-					</ItemsPanelTemplate>
-				</ItemsControl.ItemsPanel>
-				<ItemsControl.ItemContainerStyle>
-					<Style TargetType="{x:Type ContentPresenter}">
-						<Setter Property="Control.Padding" Value="5" />
-						<Setter Property="attachedProperties:DragAndDropProps.EnabledForDrag" Value="True" />
-					</Style>
-				</ItemsControl.ItemContainerStyle>
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
-						<Grid>
-							<Rectangle Name="Border" StrokeThickness="1" StrokeDashArray="2" Fill="Transparent" />
-							<ContentPresenter
-								Content="{TemplateBinding ContentControl.Content}"
-								Margin="{TemplateBinding Control.Padding}"/>
-						</Grid>
-						<DataTemplate.Triggers>
-							<Trigger Property="IsMouseOver" Value="True">
-								<Setter TargetName="Border" Property="Stroke" Value="Gray" />
-							</Trigger>
-						</DataTemplate.Triggers>
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
-			</ItemsControl>
-		</Expander>
-	</StackPanel>
+	<Border BorderBrush="LightGray" BorderThickness="1">
+		<StackPanel>
+			<Expander Header="Common" IsExpanded="True">
+				<ItemsControl ItemsSource="{Binding ToolboxItems}">
+					<ItemsControl.Template>
+						<ControlTemplate TargetType="{x:Type ItemsControl}">
+							<Border BorderThickness="{TemplateBinding Border.BorderThickness}"
+								Padding="{TemplateBinding Control.Padding}"
+								BorderBrush="{TemplateBinding Border.BorderBrush}"
+								Background="{TemplateBinding Panel.Background}"
+								SnapsToDevicePixels="True">
+								<ScrollViewer VerticalScrollBarVisibility="Auto">
+									<ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+								</ScrollViewer>
+							</Border>
+						</ControlTemplate>
+					</ItemsControl.Template>
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Margin="0,5" Orientation="Vertical" />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemContainerStyle>
+						<Style TargetType="{x:Type ContentPresenter}">
+							<Setter Property="Control.Padding" Value="5" />
+							<Setter Property="attachedProperties:DragAndDropProps.EnabledForDrag" Value="True" />
+						</Style>
+					</ItemsControl.ItemContainerStyle>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Grid>
+								<Rectangle Name="Border" StrokeThickness="1" StrokeDashArray="2" Fill="Transparent" />
+								<ContentPresenter
+									Content="{TemplateBinding ContentControl.Content}"
+									Margin="{TemplateBinding Control.Padding}"/>
+							</Grid>
+							<DataTemplate.Triggers>
+								<Trigger Property="IsMouseOver" Value="True">
+									<Setter TargetName="Border" Property="Stroke" Value="Gray" />
+								</Trigger>
+							</DataTemplate.Triggers>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</Expander>
+		</StackPanel>
+	</Border>
 </UserControl>

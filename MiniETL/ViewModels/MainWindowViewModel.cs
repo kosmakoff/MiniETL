@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Windows;
+using System.Windows.Input;
 using MiniETL.Utils.PathFinding;
 
 namespace MiniETL.ViewModels
@@ -21,6 +21,8 @@ namespace MiniETL.ViewModels
 			}
 		}
 
+		public ICommand ExitApplicationCommand { get; private set; }
+
 		public MainWindowViewModel()
 		{
 			ToolboxViewModel = new ToolboxViewModel();
@@ -31,31 +33,14 @@ namespace MiniETL.ViewModels
 			ConnectionViewModel.PathFinder = new StraightLinePathFinder();
 		}
 
-		public SimpleCommand DeleteSelectedItemsCommand { get; private set; }
-
 		private void InitCommands()
 		{
-			DeleteSelectedItemsCommand = new SimpleCommand(ExecuteDeleteSelectedItemsCommand);
+			ExitApplicationCommand = new SimpleCommand(ExitApplication);
 		}
 
-		private void ExecuteDeleteSelectedItemsCommand(object parameter)
+		private void ExitApplication(object obj)
 		{
-			var selectedDesignerItems = DiagramViewModel.SelectedItems;
-
-			var connectionsToRemove = DiagramViewModel.Items.OfType<ConnectionViewModel>()
-				.Where(connectionViewModel =>
-					selectedDesignerItems.Contains(connectionViewModel.SourceConnectorInfo.DesignerItem) ||
-					selectedDesignerItems.Contains(((FullyCreatedConnectorInfo) connectionViewModel.SinkConnectorInfo).DesignerItem));
-
-			var itemsToRemove = new List<SelectableDesignerItemViewModelBase>();
-
-			itemsToRemove.AddRange(selectedDesignerItems);
-			itemsToRemove.AddRange(connectionsToRemove);
-
-			foreach (var item in itemsToRemove)
-			{
-				DiagramViewModel.RemoveItemCommand.Execute(item);
-			}
+			Application.Current.Shutdown();
 		}
 	}
 }

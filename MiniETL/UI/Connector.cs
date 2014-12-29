@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -48,7 +49,7 @@ namespace MiniETL.UI
 
 			if (ConnectorInfo.CanEndConnection)
 			{
-				var fullyCreatedSourceInfo = (FullyCreatedConnectorInfo) DesignerCanvas.SourceConnector.DataContext;
+				var fullyCreatedSourceInfo = (FullyCreatedConnectorInfo)DesignerCanvas.SourceConnector.DataContext;
 
 				var diagram = fullyCreatedSourceInfo.DesignerItem.Diagram;
 
@@ -57,7 +58,7 @@ namespace MiniETL.UI
 
 				diagram.AddItemCommand.Execute(newConnection);
 			}
-			
+
 			DesignerCanvas.ResetPartialConnection();
 
 			e.Handled = true;
@@ -93,7 +94,7 @@ namespace MiniETL.UI
 			}
 		}
 
-		private void UpdateEnabledForConnection()
+		public void UpdateEnabledForConnection()
 		{
 			EnabledForConnection =
 				DesignerCanvas.HasPartialConnection && ConnectorInfo.CanEndConnection ||

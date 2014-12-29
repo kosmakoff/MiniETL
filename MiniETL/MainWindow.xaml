@@ -4,23 +4,56 @@
         xmlns:ui="clr-namespace:MiniETL.UI"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewModels="clr-namespace:MiniETL.ViewModels"
+        xmlns:viewModel="clr-namespace:MiniETL.ViewModels"
         mc:Ignorable="d" Title="Mini ETL" Height="600" Width="800"
 		SnapsToDevicePixels="True" Loaded="MainWindow_OnLoaded"
 		d:DataContext="{d:DesignData viewModels:MainWindowViewModel}">
 	<Window.InputBindings>
-		<KeyBinding Key="Delete" Command="{Binding DeleteSelectedItemsCommand}" />
+		<KeyBinding Key="Delete" Command="{Binding Path=(viewModel:MainWindowViewModel.DiagramViewModel).DeleteSelectedItemsCommand}" />
+		<KeyBinding Key="N" Modifiers="Control" Command="{Binding Path=(viewModel:MainWindowViewModel.DiagramViewModel).(viewModel:DiagramViewModel.CreateNewDiagramCommand)}" />
 	</Window.InputBindings>
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="200" />
-			<ColumnDefinition Width="Auto" />
-			<ColumnDefinition Width="*" />
-		</Grid.ColumnDefinitions>
-		<StackPanel>
+	<DockPanel LastChildFill="True">
+		<Menu DockPanel.Dock="Top">
+			<MenuItem Header="_File">
+				<MenuItem Header="_New" Command="{Binding Path=(viewModel:MainWindowViewModel.DiagramViewModel).(viewModel:DiagramViewModel.CreateNewDiagramCommand)}" InputGestureText="Ctrl+N">
+					<MenuItem.Icon>
+						<Image Source="/MiniETL;component/Resources/Images/Menu/NewFile.png" />
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="_Open" InputGestureText="Ctrl+O" IsEnabled="False">
+					<MenuItem.Icon>
+						<Image Source="/MiniETL;component/Resources/Images/Menu/OpenFile.png" />
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="_Save" InputGestureText="Ctrl+S" IsEnabled="False">
+					<MenuItem.Icon>
+						<Image Source="/MiniETL;component/Resources/Images/Menu/SaveFile.png" />
+					</MenuItem.Icon>
+				</MenuItem>
+				<Separator />
+				<MenuItem Header="E_xit" Command="{Binding Path=(viewModel:MainWindowViewModel.ExitApplicationCommand)}" InputGestureText="Alt+F4" />
+			</MenuItem>
+			<MenuItem Header="_Edit">
+				<MenuItem Header="Delete" Command="{Binding Path=(viewModel:MainWindowViewModel.DiagramViewModel).(viewModel:DiagramViewModel.DeleteSelectedItemsCommand)}" InputGestureText="Del" />
+			</MenuItem>
+			<MenuItem Header="_Diagram">
+				<MenuItem Header="_Execute" InputGestureText="F5" IsEnabled="False">
+					<MenuItem.Icon>
+						<Image Source="/MiniETL;component/Resources/Images/Menu/Execute.png" />
+					</MenuItem.Icon>
+				</MenuItem>
+			</MenuItem>
+			<MenuItem Header="_Help" IsEnabled="False" />
+		</Menu>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="200" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
 			<ui:ToolboxControl DataContext="{Binding ToolboxViewModel}"/>
-		</StackPanel>
-		<GridSplitter Grid.Column="1" Width="3" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
-		<ui:DiagramControl Grid.Column="2" DataContext="{Binding DiagramViewModel}" />
-	</Grid>
+			<GridSplitter Grid.Column="1" Width="3" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+			<ui:DiagramControl Grid.Column="2" DataContext="{Binding DiagramViewModel}" />
+		</Grid>
+	</DockPanel>
 </Window>
